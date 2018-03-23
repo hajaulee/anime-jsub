@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">JsubAnime</string>
+    <string name="browse_title"><![CDATA[HaJaU Play]]></string>
+    <string name="related_movies">Related Videos</string>
+    <string name="grid_view">Grid View</string>
+    <string name="error_fragment">Error Fragment</string>
+    <string name="personal_settings">Personal Settings</string>
+    <string name="watch_trailer_1">Watch trailer</string>
+    <string name="watch_trailer_2">FREE</string>
+    <string name="watch_now">Xem ngay</string>
+    <string name="watch_previous">Tập trước</string>
+    <string name="watch_next">Tập sau</string>
+    <string name="current_ep">Đang xem tập 1 lúc 00:00</string>
+    <string name="previous_ep">Tập 4</string>
+    <string name="next_ep">Tập 6</string>
+    <string name="rent_1">Rent By Day</string>
+    <string name="rent_2">From $1.99</string>
+    <string name="buy_1">Buy and Own</string>
+    <string name="buy_2">AT $9.99</string>
+    <string name="movie">Movie</string>
+    <string name="like">❤ Yêu thích</string>
+    <string name="unlike">💔 Bỏ thích</string>
+    <string name="should_start">shouldStart</string>
+    <string name="movie_title">Tiêu đề</string>
+    <string name="genres">Thể loại</string>
+    <string name="summary">Tóm tắt</string>
+    <string name="duration">24min/Eps</string>
+    <string name="year">(2018)</string>
+    <string name="separator">-</string>
+    <string name="loading_video">Loading video…</string>
+    <string name="update">Cập nhật</string>
+    <string name="info">Thông tin</string>
+    <string name="settings">Cài đặt</string>
+
+    <!-- Error messages -->
+    <string name="video_error_media_load_timeout">Media loading timed out</string>
+    <string name="video_error_server_inaccessible">Media server was not reachable</string>
+    <string name="video_error_unknown_error">Failed to load video</string>
+    <string name="error_fragment_message">An error occurred</string>
+    <string name="dismiss_error">Dismiss</string>
+</resources>
