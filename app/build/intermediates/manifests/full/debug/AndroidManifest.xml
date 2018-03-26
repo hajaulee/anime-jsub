@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hajaulee.jsubanime"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="26" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/Theme.Leanback" >
+        <activity
+            android:name="com.hajaulee.jsubanime.MainActivity"
+            android:banner="@drawable/banner_logo"
+            android:icon="@mipmap/app_icon"
+            android:label="@string/app_name"
+            android:logo="@drawable/banner_logo"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.hajaulee.jsubanime.DetailsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.hajaulee.jsubanime.PlaybackActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.hajaulee.jsubanime.BrowseErrorActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.hajaulee.jsubanime.VideoEnabledWebPlayer"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.hajaulee.jsubanime.SearchActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" />
+
+        <provider
+            android:name="com.hajaulee.jsubanime.GenericFileProvider"
+            android:authorities="com.hajaulee.jsubanime.my.package.name.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <meta-data
+            android:name="android.support.VERSION"
+            android:value="26.1.0" />
+        <meta-data
+            android:name="android.arch.lifecycle.VERSION"
+            android:value="27.0.0-SNAPSHOT" />
+    </application>
+
+</manifest>
