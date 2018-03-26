@@ -150,12 +150,20 @@ public class MainFragment extends BrowseFragment {
         gridRowAdapter.add(getResources().getString(R.string.settings));
         mRowsAdapter.add(new ListRow(gridHeader, gridRowAdapter));
 
+
+        for (int j = 0; j < 3; j++)
+            Log.d("updateMax:", MovieList.updateMax[j]);
         try {
             setAdapter(mRowsAdapter);
             if (itemIndex != 0)
                 this.setSelectedPosition(rowIndex, false, new ListRowPresenter.SelectItemViewHolderTask(itemIndex));
         } catch (Exception e) {
             Log.d(TAG, e.toString());
+            Toast.makeText(getActivity(), "Xin chờ", Toast.LENGTH_SHORT).show();
+            Intent intent = getActivity().getBaseContext().getPackageManager()
+                    .getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
 
@@ -189,8 +197,11 @@ public class MainFragment extends BrowseFragment {
 
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Chức năng tìm phim chưa hoàn thiện", Toast.LENGTH_LONG)
-                        .show();
+//                Toast.makeText(getActivity(), "Chức năng tìm phim chưa hoàn thiện", Toast.LENGTH_LONG)
+//                        .show();
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
 
@@ -256,15 +267,15 @@ public class MainFragment extends BrowseFragment {
                     switch ((String) item) {
                         case "0":
                             new LoadAnjsubData(MainFragment.this)
-                                    .load(0, "http://www.anjsub.com/search/label/Comedy?updated-max=2016-12-20T07%3A39%3A00-08%3A00&max-results=9");
+                                    .load(0, "http://www.anjsub.com/search?updated-max=" + MovieList.updateMax[0] + "T00%3A25%3A00-08%3A00&max-results=9");
                             break;
                         case "1":
                             new LoadAnjsubData(MainFragment.this)
-                                    .load(1, "http://www.anjsub.com/search/label/Comedy?updated-max=2017-01-24T02%3A28%3A00-08%3A00&max-results=9");
+                                    .load(1, "http://www.anjsub.com/search/label/Comedy?updated-max=" + MovieList.updateMax[1] + "T00%3A28%3A00-08%3A00&max-results=9");
                             break;
                         case "2":
                             new LoadAnjsubData(MainFragment.this)
-                                    .load(2, "http://www.anjsub.com/search/label/Sci-Fi?updated-max=2016-08-28T05%3A37%3A00-07%3A00&max-results=9");
+                                    .load(2, "http://www.anjsub.com/search/label/Sci-Fi?updated-max=" + MovieList.updateMax[2] + "T00%3A37%3A00-07%3A00&max-results=9");
                             break;
                     }
                 }

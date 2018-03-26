@@ -42,10 +42,9 @@ public class MainActivity extends Activity {
 
     public static final String UPDATE_LINK = "http://12a1.wc.lt/apk/jsubanime/app-release.app";
     public static final String INFO_OF_UPDATE = "http://12a1.wc.lt/apk/jsubanime/version.txt";
-    public static final double APP_VERSION = 20180317.4;
+    public static final double APP_VERSION = 20180327.4;
     private static Activity activity;
     public static final int REQUEST = 1997;
-    private boolean BACK_CLICKED = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,27 +61,11 @@ public class MainActivity extends Activity {
         return activity;
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        if (BACK_CLICKED) {
-//            this.finish();
-//        } else {
-//            Toast.makeText(this, "Nhấn nút quay lại lần nữa để thoát", Toast.LENGTH_SHORT).show();
-//        }
-//        BACK_CLICKED ^= true;
-//    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         this.finish();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        BACK_CLICKED = false;
     }
 
     @Override

@@ -32,6 +32,8 @@ public final class MovieList {
         ADD,
         REMOVE
     }
+
+    public static String[] updateMax = new String[]{"", "", "", ""};
     public static List<Movie> favoriteMovies;
     public static List<Movie> totalMovieList = new ArrayList<>();
     public static final String FAVORITE_LIST = "FAVORITE_LIST";

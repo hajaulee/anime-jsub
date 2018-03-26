@@ -18,8 +18,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by HaJaU on 26-02-18.
@@ -342,13 +346,31 @@ public class LoadAnjsubData {
                 list = new ArrayList<>();
             int openTagOfBlock = 0;
             int closeTagOfBlock = 0;
+            int openWaktuClass = 0;
+            int closeWaktuClass = 0;
             for (int index = 0; index < 18; ++index) {
 
                 openTagOfBlock = webContent.indexOf("<article", closeTagOfBlock + 1);
                 closeTagOfBlock = webContent.indexOf("</article", openTagOfBlock + 1);
 
+                openWaktuClass = webContent.indexOf("'waktu'", closeWaktuClass +1);
+                closeWaktuClass = webContent.indexOf("</span>", openWaktuClass + 1);
                 if (openTagOfBlock == -1 || closeTagOfBlock == -1)
                     break;
+
+                String updateTime = webContent
+                        .substring(openWaktuClass + 8, closeWaktuClass)
+                        .replaceAll("\\<.*?>", "");
+                DateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
+                DateFormat ndf = new SimpleDateFormat("yyyy-MM-dd");
+                Date d;
+                try{
+                    d = df.parse(updateTime);
+                    MovieList.updateMax[indexInTotalMovieList] = ndf.format(d);
+                    LogThis("Time:" + ndf.format(d));
+                }catch (Exception e){
+                    LogThis("Invalid time: \"" + updateTime + "\"" + e.toString() );
+                }
                 String movieBlock = webContent.substring(openTagOfBlock, closeTagOfBlock);
                 String movieUrl = getURL(movieBlock);
                 movieBlock = movieBlock.replaceAll("\\<.*?>", separatorChar)

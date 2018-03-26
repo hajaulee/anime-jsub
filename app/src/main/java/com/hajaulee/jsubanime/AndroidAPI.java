@@ -48,6 +48,10 @@ public class AndroidAPI {
         String[] arrayEp = epList.replaceAll("( | )+", MovieDetailsView.SEPARATOR).split(MovieDetailsView.SEPARATOR);
 
         movie.setEpisodeList(arrayEp);
+        if(MovieList.isLiked(movie)){
+            MovieList.getMovieFromFavoriteList(movie).setEpisodeList(arrayEp);
+            MovieList.saveFavoriteMovieList(null, MovieList.SaveAction.REMOVE);
+        }
         if (movie1.equals(movie))
             movie1.setEpisodeList(movie.getEpisodeList());
         if (listEp != null) {
