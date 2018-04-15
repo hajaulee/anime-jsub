@@ -41,7 +41,7 @@ public class LoadEpisodeList {
         movie = MovieDetailsView.getInstance().getSelectedMovie();
         webView = new VideoEnabledWebView(sender);
 
-        webView.getSettings().setUserAgentString("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36");
+        //webView.getSettings().setUserAgentString("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36");
         webView.setVisibility(View.INVISIBLE);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new AndroidAPI(sender, webView, movie), "Android");
@@ -65,6 +65,8 @@ public class LoadEpisodeList {
 
                 Log.d("zzz:Commit", url);
                 super.onPageCommitVisible(view, url);
+
+                webView.loadUrl(LOAD_EP_SCRIPT);
                 Log.d("zzz:Commit", "");
             }
 
@@ -73,7 +75,6 @@ public class LoadEpisodeList {
                 super.onPageFinished(w, url);
 
                 Log.d("zzz:Finished", url);
-                webView.loadUrl(LOAD_EP_SCRIPT);
             }
         });
     }

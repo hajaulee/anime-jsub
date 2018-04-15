@@ -18,22 +18,32 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Locale;
 
 /*
  * MainActivity class that loads {@link MainFragment}.
@@ -42,9 +52,16 @@ public class MainActivity extends Activity {
 
     public static final String UPDATE_LINK = "http://12a1.wc.lt/apk/jsubanime/app-release.app";
     public static final String INFO_OF_UPDATE = "http://12a1.wc.lt/apk/jsubanime/version.txt";
-    public static final double APP_VERSION = 20180327.4;
+    public static final double APP_VERSION = 20180412.3;
     private static Activity activity;
     public static final int REQUEST = 1997;
+    public static final String WHAT_NEW =
+                    "20180406.0: Fix lỗi url, cải thiện hiệu suất.\n" +
+                    "20180409.0: Cải thiện hiệu suất chuyển tập.\n" +
+                    "20180412.1: Thêm chức năng xem từ phút bỏ dở.\n" +
+                    "20180412.2: Bổ sung thêm ngôn ngữ.\n" +
+                    "20180412.3: Thêm màn hình đợi.\n";
+    private Dialog helloDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,8 +70,9 @@ public class MainActivity extends Activity {
         getPermissions();
 
         activity = this;
-
         setContentView(R.layout.activity_main);
+
+        showHelloDialog();
     }
 
     public static Activity getInstance() {
@@ -66,6 +84,12 @@ public class MainActivity extends Activity {
     public void onDestroy() {
         super.onDestroy();
         this.finish();
+    }
+
+    @Override
+    public boolean onSearchRequested() {
+        startActivity(new Intent(this, SearchActivity.class));
+        return true;
     }
 
     @Override
@@ -108,8 +132,8 @@ public class MainActivity extends Activity {
 
     @SuppressLint("StaticFieldLeak")
     public void showCheckUpdateDialog() {
-        final ProgressDialog dialog = ProgressDialog.show(this, "Kiểm tra cập nhật",
-                "Đang tìm kiếm các bản cập nhật", true);
+        final ProgressDialog dialog = ProgressDialog.show(this, getStringR(R.string.check_update),
+                getStringR(R.string.find_update), true);
         new AsyncTask<String, String, String>() {
 
             @Override
@@ -150,7 +174,7 @@ public class MainActivity extends Activity {
 
         // instantiate it within the onCreate method
         ProgressDialog mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setMessage("Đang tải bản cập nhật");
+        mProgressDialog.setMessage(getStringR(R.string.updating));
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.setCancelable(false);
@@ -169,9 +193,9 @@ public class MainActivity extends Activity {
 
     public void showUpToDateDialog() {
         AlertDialog.Builder UpToDateDialog = new AlertDialog.Builder(this);
-        UpToDateDialog.setTitle("Không tìm thấy bản cập nhật");
-        UpToDateDialog.setMessage("Phiên bản hiện tại là mới nhất");
-        UpToDateDialog.setPositiveButton("Quay lại", new DialogInterface.OnClickListener() {
+        UpToDateDialog.setTitle(getStringR(R.string.update_not_found));
+        UpToDateDialog.setMessage(getStringR(R.string.up_to_date));
+        UpToDateDialog.setPositiveButton(getStringR(R.string.back), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
@@ -180,18 +204,32 @@ public class MainActivity extends Activity {
         UpToDateDialog.create().show();
     }
 
-    public void showUpdateConfirmationDialog() {
+    public void showInfoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Tìm thấy bản cập nhật mới.");
-        builder.setMessage("Bạn có muốn cập nhật không?");
-        builder.setCancelable(false);
-        builder.setPositiveButton("Để sau", new DialogInterface.OnClickListener() {
+        builder.setTitle(getStringR(R.string.updating_history));
+        builder.setMessage(WHAT_NEW);
+        builder.setCancelable(true);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(MainActivity.this, "Hãy cập nhật bản mới để có nhiều chức năng tuyệt vời.", Toast.LENGTH_SHORT).show();
+                dialogInterface.dismiss();
             }
         });
-        builder.setNegativeButton("Cập nhật", new DialogInterface.OnClickListener() {
+        builder.create().show();
+    }
+
+    public void showUpdateConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getStringR(R.string.update_found));
+        builder.setMessage(getStringR(R.string.want_to_update));
+        builder.setCancelable(false);
+        builder.setPositiveButton(getStringR(R.string.after), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(MainActivity.this, getStringR(R.string.update_to_great), Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton(getStringR(R.string.update), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
@@ -199,6 +237,71 @@ public class MainActivity extends Activity {
             }
         });
         builder.create().show();
+    }
 
+    public static String getStringR(int id) {
+        Configuration conf = getInstance().getResources().getConfiguration();
+        conf.locale = new Locale("ja");
+        DisplayMetrics metrics = new DisplayMetrics();
+        getInstance().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Resources resources = new Resources(getInstance().getAssets(), metrics, conf);
+        String str = resources.getString(id);
+        return str;
+    }
+
+    public void showHelloDialog() {
+
+        helloDialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+        helloDialog.setCancelable(false);
+        helloDialog.addContentView(((LayoutInflater) MainActivity
+                .getInstance()
+                .getBaseContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_hello, null),
+                new WindowManager.LayoutParams(WindowManager.LayoutParams.FLAG_FULLSCREEN));
+        helloDialog.show();
+    }
+
+    public void hideHelloDialog(){
+        helloDialog.hide();
+        helloDialog.dismiss();
+    }
+    public void showSettingsDialog() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        LayoutInflater inflater = (LayoutInflater) MainActivity
+                .getInstance()
+                .getBaseContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View v = inflater.inflate(R.layout.layout_settings, null);
+        Spinner spinner = (Spinner) v.findViewById(R.id.language_selector);
+        String languages[] = {"Tiếng Việt", "日本語"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, languages);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        b.setView(v);
+        b.create().show();
+    }
+
+    public static void showWatchInMiddleConfirmationDialog(final VideoDetailsFragment sender, final Intent intent, final Movie m) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(sender.getActivity());
+        builder.setTitle("Bạn có muốn xem tiếp tại phần bỏ dở không?");
+        builder.setMessage("Bạn đang xem tập " + m.getCurrentEp() + " tại " +
+                VideoDetailsFragment.timeFormat(m.getWatchingSecond()));
+        builder.setCancelable(false);
+        builder.setNegativeButton(getStringR(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                intent.putExtra(DetailsActivity.WATCH_TIME, m.getWatchingSecond());
+                sender.startActivity(intent);
+            }
+        });
+        builder.setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                sender.startActivity(intent);
+            }
+        });
+        builder.create().show();
     }
 }

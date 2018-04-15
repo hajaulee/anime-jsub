@@ -42,47 +42,47 @@
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="1" />
+                    android:text="01" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="2" />
+                    android:text="02" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="3" />
+                    android:text="03" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="4" />
+                    android:text="04" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="5" />
+                    android:text="05" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="6" />
+                    android:text="06" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="7" />
+                    android:text="07" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="8" />
+                    android:text="08" />
 
                 <Button
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="9" />
+                    android:text="09" />
 
                 <Button
                     android:layout_width="40dp"

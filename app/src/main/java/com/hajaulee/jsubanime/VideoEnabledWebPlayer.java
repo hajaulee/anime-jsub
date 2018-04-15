@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -12,23 +13,29 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class VideoEnabledWebPlayer extends Activity {
 
-    public static boolean SHOW_WEBVIEW = false;
+    private long touchLastTime = 0;
 
-
-    private long dispatchTouchLastTime = 0;
+    private boolean LOADED = false;
+    private boolean DOUBLE_BACK_PRESSED = false;
+    private boolean isFullScreen = false;
+    private boolean seek = false;
+    final int DELAY = 300;
     final float MIN_DISTANCE = 100f;
     private float x1 = 0, x2 = 0, y1 = 0, y2 = 0;
-
+    private int pressCount = 3;
     private VideoEnabledWebView webView;
     public Movie movie;
     private CharSequence episode;
-    public ProgressDialog dialog;
+    static public ProgressDialog dialog;
     private VideoEnabledWebChromeClient webChromeClient;
 
     private String BACKWARD = "javascript: (function(){" +
@@ -40,8 +47,14 @@ public class VideoEnabledWebPlayer extends Activity {
             "v.currentTime += 30;" +
             "})()";
     private String PAUSE_PLAY = "javascript:(function(){" +
-            "document.querySelector('.vjs-play-control.vjs-control.vjs-button').click();" +
+            "   document.querySelector('.vjs-play-control.vjs-control.vjs-button').click();" +
+            "   if(document.querySelector('#videoPlayer_html5_api').paused){" +
+            "       document.querySelector('#videoPlayer > div.vjs-control-bar').style.opacity = 50;" +
+            "   }else{" +
+            "       document.querySelector('#videoPlayer > div.vjs-control-bar').style.opacity = 0;" +
+            "   }" +
             "})()";
+
     private String CURRENT_PLAY_TIME = "javascript:(function(){" +
             "var v= document.querySelector('#videoPlayer_html5_api');" +
             "Android.setCurrentTime(v.currentTime);" +
@@ -52,45 +65,70 @@ public class VideoEnabledWebPlayer extends Activity {
             "        Android.nextEp();" +
             "    }" +
             "})()";
-    private String VIDEO_START_EVENT = "javascript:(function(){" +
-            "document.querySelector('#videoPlayer_html5_api').addEventListener('playing',myHandler,false);" +
+    static final String VIDEO_START_EVENT = "javascript:(function(){" +
+            "       Android.sendLog('Logg');" +
             "    function myHandler(e) {" +
+            "        Android.sendLog('Ajjj');" +
             "        Android.showVideo();" +
             "    }" +
+            "document.querySelector('#videoPlayer_html5_api').addEventListener('playing',myHandler,false);" +
+//            "document.getElementsByTagName('video')[0].addEventListener('playing',myHandler,false);" +
             "})()";
+    private RelativeLayout nonVideoLayout;
+    private ViewGroup videoLayout;
+    private View loadingView;
+    private Integer watchTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.setProperty("http.keepAlive", "false");
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_example);
-        SHOW_WEBVIEW = false;
+        setContentView(R.layout.activity_main_player);
 
         movie = (Movie) this.getIntent().getSerializableExtra(DetailsActivity.MOVIE);
         movie = MovieList.getMovieFromFavoriteList(movie);
         episode = (CharSequence) this.getIntent().getSerializableExtra(DetailsActivity.EPISODE);
-
-
+        watchTime = (Integer) this.getIntent().getSerializableExtra(DetailsActivity.WATCH_TIME);
+        if (watchTime == null) {
+            watchTime = 0;
+        } else {
+            seek = true;
+        }
         movie.setCurrentEp((episode == null) ? null : episode.toString());
         movie.setWatchingSecond(0);
         MovieList.saveFavoriteMovieList(null, MovieList.SaveAction.REMOVE);
 
         dialog = new ProgressDialog(this);
         dialog.setMessage(Html.fromHtml("<font color=\"black\">Đang chuẩn bị video...</font>"));
-        dialog.setCancelable(false);
-        dialog.setInverseBackgroundForced(false);
-        dialog.show();
+        dialog.setCancelable(true);
+        dialog.setInverseBackgroundForced(true);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.background_light);
+        dialog.show();
 
-        // Save the web view
-        webView = (VideoEnabledWebView) findViewById(R.id.webView);
+        // Init webView
+
+        if (PreloadNextEpisode.equals(movie) && PreloadNextEpisode.LOADED) {
+            LOADED = true;
+            webView = PreloadNextEpisode.getWebView();
+        } else {
+            LOADED = false;
+            webView = new VideoEnabledWebView(this);
+        }
+        PreloadNextEpisode.preLoad(this, movie);
         webView.setVisibility(View.INVISIBLE);
+        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.setVisibility(View.VISIBLE);
 
         // Initialize the VideoEnabledWebChromeClient and set event handlers
-        View nonVideoLayout = findViewById(R.id.nonVideoLayout); // Your own view, read class comments
-        ViewGroup videoLayout = (ViewGroup) findViewById(R.id.videoLayout); // Your own view, read class comments
+        nonVideoLayout = findViewById(R.id.nonVideoLayout); // Your own view, read class comments
+        nonVideoLayout.removeAllViews();
+        nonVideoLayout.addView(webView);
+
+        videoLayout = (ViewGroup) findViewById(R.id.videoLayout); // Your own view, read class comments
         //noinspection all
-        View loadingView = getLayoutInflater().inflate(R.layout.view_loading_video, null); // Your own view, read class comments
+        loadingView = getLayoutInflater().inflate(R.layout.view_loading_video, null); // Your own view, read class comments
+
         webChromeClient = new VideoEnabledWebChromeClient(nonVideoLayout, videoLayout, loadingView, webView) // See all available constructors...
         {
             // Subscribe to standard events, such as onProgressChanged()...
@@ -101,7 +139,7 @@ public class VideoEnabledWebPlayer extends Activity {
                 Log.d("xxxonProgressChanged", String.valueOf(webView.getVisibility()));
             }
         };
-
+        webChromeClient.setWebPlayer(this);
         webChromeClient.setOnToggledFullscreen(new VideoEnabledWebChromeClient.ToggledFullscreenCallback() {
             @Override
             public void toggledFullscreen(boolean fullscreen) {
@@ -112,29 +150,26 @@ public class VideoEnabledWebPlayer extends Activity {
                     attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
                     attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                     getWindow().setAttributes(attrs);
-                    if (android.os.Build.VERSION.SDK_INT >= 14) {
-                        //noinspection all
-                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-                    }
+                    //noinspection all
+                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
+                    isFullScreen = true;
                     Toast.makeText(getApplicationContext(), "Xem toàn màn hình", Toast.LENGTH_SHORT).show();
-//                    showWebView(SHOW_WEBVIEW);
                     webView.loadUrl(VIDEO_FINISH_EVENT);
+//                    runScriptOnWebFinish();
 
                 } else {
                     WindowManager.LayoutParams attrs = getWindow().getAttributes();
                     attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
                     attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                     getWindow().setAttributes(attrs);
-                    if (android.os.Build.VERSION.SDK_INT >= 14) {
-                        //noinspection all
-                        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-                    }
+                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                 }
 
             }
         });
         webView.setWebChromeClient(webChromeClient);
+
         // Call private class InsideWebViewClient
         webView.setWebViewClient(new InsideWebViewClient());
         webView.addJavascriptInterface(new AndroidAPI(this), "Android");
@@ -146,7 +181,13 @@ public class VideoEnabledWebPlayer extends Activity {
         } else {
             episode = "01";
         }
-        webView.loadUrl(movie.getFirstEpisodeLink() + "?v=episode" + episode + "&m=1");
+
+        if (LOADED) {
+            runScriptOnWebFinish();
+            Log.d("java", "aaass");
+        } else {
+            webView.loadUrl(movie.getFirstEpisodeLink() + "?v=episode" + episode + "&m=1");
+        }
         Log.d("xxxExeahihi:", movie.getFirstEpisodeLink());
 
         webView.setWebViewClient(new WebViewClient() {
@@ -165,20 +206,38 @@ public class VideoEnabledWebPlayer extends Activity {
             public void onPageFinished(WebView w, String url) {
                 super.onPageFinished(w, url);
                 Log.d("xxxonPageFinished", webView.getUrl());
-                webView.loadUrl("javascript:(function(){" +
-                        "Android.showWebView();" +
-                        "document.querySelector('.vjs-big-play-button').click();" +
-                        "document.querySelector('.vjs-fullscreen-control').click();" +
-                        "document.querySelector('#videoPlayer > div.vjs-control-bar > div.vjs-captions-button.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button > div > ul > li:nth-child(3)').click();" +
-                        "})()");
-                webView.loadUrl(LoadEpisodeList.LOAD_EP_SCRIPT);
-                webView.loadUrl(VIDEO_START_EVENT);
+                runScriptOnWebFinish();
             }
         });
 
 
     }
 
+    public void runScriptOnWebFinish() {
+
+        webView.loadUrl("javascript:(function(){" +
+                "document.querySelector('.vjs-big-play-button').click();" +
+                "Android.sendLog(''+document.querySelector('#videoPlayer').clientHeight);" +
+                "Android.sendLog(''+window.innerHeight);" +
+                "if( document.querySelector('#videoPlayer').clientHeight == window.innerHeight) {}else{" +
+                "document.querySelector('.vjs-fullscreen-control').click();" +
+                "Android.sendLog('Not fullscreen');}" +
+                "document.querySelector('#videoPlayer > div.vjs-control-bar > " +
+                "           div.vjs-captions-button.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button >" +
+                "           div > ul > li:nth-child(3)').click();" +
+                "   document.querySelector('.vjs-fullscreen-control').style.visibility = 'hidden';" +
+                "   document.querySelector('.vjs-captions-button').style.visibility = 'hidden';" +
+                "})()");
+
+        webView.loadUrl(VIDEO_START_EVENT);
+        webView.loadUrl(LoadEpisodeList.LOAD_EP_SCRIPT);
+        if (seek) {
+            webView.loadUrl("javascript: (function(){" +
+                    "var v= document.querySelector('#videoPlayer_html5_api');" +
+                    "v.currentTime = " + watchTime + ";" +
+                    "})()");
+        }
+    }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
@@ -206,7 +265,22 @@ public class VideoEnabledWebPlayer extends Activity {
                 case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
                     new AndroidAPI(this).previousEp();
                     break;
-
+                case KeyEvent.KEYCODE_BACK:
+                    if (!DOUBLE_BACK_PRESSED) {
+                        Toast.makeText(this, "Nhấn lần nữa để thoát.", Toast.LENGTH_SHORT).show();
+                        webView.loadUrl(CURRENT_PLAY_TIME);
+                        DOUBLE_BACK_PRESSED = true;
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                DOUBLE_BACK_PRESSED = false;
+                            }
+                        }, 2000);
+                    } else {
+                        webView.destroy();
+                        this.finish();
+                    }
+                    return true;
             }
         }
         return super.dispatchKeyEvent(event);
@@ -222,22 +296,6 @@ public class VideoEnabledWebPlayer extends Activity {
         }
     }
 
-
-    @Override
-    public void onBackPressed() {
-        webView.loadUrl(CURRENT_PLAY_TIME);
-        // Notify the VideoEnabledWebChromeClient, and handle it ourselves if it doesn't handle it
-        if (!webChromeClient.onBackPressed()) {
-            if (webView.canGoBack()) {
-                //webView.goBack();   // Not need webview goBack
-            } else {
-                // Standard back button implementation (for example this could close the app)
-//                super.onBackPressed();
-            }
-            super.onBackPressed();
-        }
-
-    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
@@ -271,21 +329,19 @@ public class VideoEnabledWebPlayer extends Activity {
                         webView.loadUrl(BACKWARD);
                     }
                 } else {
+                    if (checkThreePress()) {
+                        DisplayMetrics displayMetrics = new DisplayMetrics();
+                        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                        int width = displayMetrics.widthPixels;
+                        if (x2 >= width / 2) {
+                            new AndroidAPI(this).nextEp();
+                        } else {
+                            new AndroidAPI(this).previousEp();
+                        }
+                    }
                     // is click
                     Log.d("dispatchTouchEvent", "CLICK");
-                    long dispatchTouchCurrentTime = new Date().getTime();
-                    Log.d("dispatchTouchEvent", "" + dispatchTouchCurrentTime);
-                    if (dispatchTouchCurrentTime - 500 > dispatchTouchLastTime) {
-//                        VideoSupportFragmentGlueHost glueHost = videoFragment.glueHost;
-//                        if (glueHost.isControlsOverlayVisible())
-//                            glueHost.hideControlsOverlay(true);
-//                        else
-//                            glueHost.showControlsOverlay(true);
-                        webView.loadUrl(PAUSE_PLAY);
-                    } else {
-                        Log.d("dispatchTouchEvent", "Delay not enought");
-                    }
-                    dispatchTouchLastTime = dispatchTouchCurrentTime;
+                    webView.loadUrl(PAUSE_PLAY);
                 }
                 break;
         }
@@ -293,22 +349,48 @@ public class VideoEnabledWebPlayer extends Activity {
         return super.dispatchTouchEvent(event);
     }
 
-    public void showWebView(boolean show) {
-        if (show) {
-            Log.d("xxxshowWebView", String.valueOf(webView.getVisibility()));
-            SHOW_WEBVIEW = false;
-            VideoEnabledWebPlayer.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    VideoEnabledWebPlayer.this.dialog.hide();
-                    VideoEnabledWebPlayer.this.webView.setVisibility(View.VISIBLE);
-                    VideoEnabledWebChromeClient.activityVideoView.setVisibility(View.VISIBLE);
-                    Log.d("xxxrunOnUiThread", String.valueOf(webView.getVisibility()));
-                }
-            });
-
+    boolean checkThreePress() {
+        long time = new Date().getTime();
+        if (time > touchLastTime + DELAY) {
+            pressCount = 2;
+        } else {
+            pressCount--;
         }
+        //Toast.makeText(this, "" + pressCount, Toast.LENGTH_SHORT).show();
+        touchLastTime = time;
+        return pressCount <= 0;
     }
 
+    public void showWebView() {
+//        Log.d("xxxshowWebView", String.valueOf(webView.getVisibility()));
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                showWebViewAction();
+            }
+        });
+    }
+
+    public void showWebViewAction() {
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.d("Runnable", "Dismiss dialog:");
+                if (isFullScreen || !dialog.isShowing()) {
+                    VideoEnabledWebPlayer.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.hide();
+                            dialog.dismiss();
+                        }
+                    });
+                    this.cancel();
+                }
+            }
+        }, 0, 100);
+
+        Log.d("xxxRunOnUiThread", String.valueOf(movie.getCurrentEp() + ":" + webView.getVisibility()));
+    }
 
 }

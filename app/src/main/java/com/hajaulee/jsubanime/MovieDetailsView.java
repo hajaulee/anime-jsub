@@ -220,12 +220,12 @@ public class MovieDetailsView extends Presenter {
     }
 
     public View getDetailsView() {
-        final View v; // Creating an instance for View Object
+
         LayoutInflater inflater = (LayoutInflater) MainActivity
                 .getInstance()
                 .getBaseContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        v = inflater.inflate(R.layout.vh_details, null);
+        final View v = inflater.inflate(R.layout.vh_details, null);
 
         Button like = v.findViewById(R.id.like);
         episodeListView = v.findViewById(R.id.episode_list);

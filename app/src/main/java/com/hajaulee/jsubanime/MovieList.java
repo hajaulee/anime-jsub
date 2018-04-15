@@ -14,9 +14,7 @@
 
 package com.hajaulee.jsubanime;
 
-import android.app.Activity;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
-import android.support.v17.leanback.widget.ListRow;
 import android.util.Log;
 
 import java.io.File;
@@ -28,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class MovieList {
-    public enum SaveAction{
+    public enum SaveAction {
         ADD,
         REMOVE
     }
@@ -38,10 +36,10 @@ public final class MovieList {
     public static List<Movie> totalMovieList = new ArrayList<>();
     public static final String FAVORITE_LIST = "FAVORITE_LIST";
     public static final String MOVIE_CATEGORY[] = {
-            "Mới nhất",
-            "Hài hước",
-            "Siêu nhiên",
-            "Yêu thích"
+            MainActivity.getStringR(R.string.newest),
+            MainActivity.getStringR(R.string.comedy),
+            MainActivity.getStringR(R.string.sci_Fi),
+            MainActivity.getStringR(R.string.favorite)
     };
 
     private static List<Movie> list;
@@ -68,25 +66,26 @@ public final class MovieList {
         }
     }
 
-    public static Movie getMovieFromFavoriteList(Movie movie){
+    public static Movie getMovieFromFavoriteList(Movie movie) {
         return getMovieFromList(favoriteMovies, movie);
     }
 
-    public static Movie getMovieFromTotalList(Movie movie){
+    public static Movie getMovieFromTotalList(Movie movie) {
         return getMovieFromList(totalMovieList, movie);
     }
 
-    public static Movie getMovieFromList(List<Movie> list, Movie movie){
+    public static Movie getMovieFromList(List<Movie> list, Movie movie) {
         int i = list.indexOf(movie);
-        Log.d("Hashzzz", movie.hashCode() +"<<" + movie.getTitle());
+        Log.d("Hashzzz", movie.hashCode() + "<<" + movie.getTitle());
         if (i == -1)
             return movie;
         else {
             movie = list.get(i);
-            Log.d("Hashzzz", movie.hashCode() +"<<" + movie.getTitle());
+            Log.d("Hashzzz", movie.hashCode() + "<<" + movie.getTitle());
             return movie;
         }
     }
+
     public static void removeFavorite(Movie movie) {
         if (favoriteMovies != null) {
             favoriteMovies.remove(movie);
@@ -94,7 +93,7 @@ public final class MovieList {
         }
     }
 
-    public static void saveFavoriteMovieList(Movie movie, SaveAction saveAction){
+    public static void saveFavoriteMovieList(Movie movie, SaveAction saveAction) {
         try {
             FileOutputStream favoriteData = new FileOutputStream(
                     MainActivity.getInstance().getApplicationInfo().dataDir + File.separatorChar + MovieList.FAVORITE_LIST);
@@ -104,17 +103,20 @@ public final class MovieList {
 
 
             ArrayObjectAdapter favoriteAdapter = MainFragment.getFavoriteAdapter();
-            if (saveAction == SaveAction.ADD){
+            if (saveAction == SaveAction.ADD) {
                 favoriteAdapter.add(movie);
-            }else if(saveAction == SaveAction.REMOVE) {
+            } else if (saveAction == SaveAction.REMOVE) {
                 favoriteAdapter.remove(movie);
             }
-            favoriteAdapter.notify();
+            synchronized (favoriteAdapter) {
+                favoriteAdapter.notify();
+            }
         } catch (Exception e1) {
             Log.d(FAVORITE_LIST, e1.toString());
         }
     }
-    public static boolean allLoaded(List<List<Movie>> list){
+
+    public static boolean allLoaded(List<List<Movie>> list) {
         if (list == null)
             return false;
         for (int i = 0; i < MainFragment.NUM_ROWS; ++i)
@@ -122,12 +124,13 @@ public final class MovieList {
                 return false;
         return true;
     }
-    public static void loadFavoriteMovieList(MainFragment mf){
+
+    public static void loadFavoriteMovieList(MainFragment mf) {
         try {
             FileInputStream favoriteData = new FileInputStream(
                     MainActivity.getInstance().getApplicationInfo().dataDir + File.separatorChar + MovieList.FAVORITE_LIST);
             ObjectInputStream ois = new ObjectInputStream(favoriteData);
-            MovieList.favoriteMovies = (List<Movie>)ois.readObject();
+            MovieList.favoriteMovies = (List<Movie>) ois.readObject();
             mf.totalMovieList.set(MainFragment.NUM_ROWS - 1, MovieList.favoriteMovies);
             ois.close();
         } catch (Exception e1) {

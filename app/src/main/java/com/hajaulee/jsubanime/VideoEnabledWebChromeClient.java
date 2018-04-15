@@ -1,12 +1,17 @@
 package com.hajaulee.jsubanime;
 
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
 /**
  * This class serves as a WebChromeClient to be set to a WebView, allowing it to play video.
@@ -30,10 +35,15 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements Medi
     }
 
     private View activityNonVideoView;
-    public static ViewGroup activityVideoView;
+    public ViewGroup activityVideoView;
     private View loadingView;
     private VideoEnabledWebView webView;
 
+    public void setWebPlayer(VideoEnabledWebPlayer webPlayer) {
+        this.webPlayer = webPlayer;
+    }
+
+    private VideoEnabledWebPlayer webPlayer;
     private boolean isVideoFullscreen; // Indicates if the video is being displayed using a custom view (typically full-screen)
     private FrameLayout videoViewContainer;
     private CustomViewCallback videoViewCallback;
@@ -132,6 +142,27 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements Medi
             activityNonVideoView.setVisibility(View.INVISIBLE);
             activityVideoView.addView(videoViewContainer, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 //            activityVideoView.setVisibility(View.VISIBLE);
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Log.d("Runable", "Show video view");
+                   if( !webPlayer.dialog.isShowing()){
+                       new Timer().schedule(new TimerTask() {
+                           @Override
+                           public void run() {
+                               webPlayer.runOnUiThread(new Runnable() {
+                                   @Override
+                                   public void run() {
+                                       activityVideoView.setVisibility(View.VISIBLE);
+                                   }
+                               });
+                           }
+                       }, 500);
+
+                       this.cancel();
+                   }
+                }
+            },0, 100);
             activityVideoView.setVisibility(View.INVISIBLE);
 //            Toast.makeText(this.getVideoLoadingProgressView().getContext(), "Hể", Toast.LENGTH_SHORT).show();
             if (focusedChild instanceof android.widget.VideoView) {
@@ -193,7 +224,7 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements Medi
             // Hide the video view, remove it, and show the non-video view
             activityVideoView.setVisibility(View.INVISIBLE);
             activityVideoView.removeView(videoViewContainer);
-//            activityNonVideoView.setVisibility(View.VISIBLE);
+            activityNonVideoView.setVisibility(View.VISIBLE);
             activityVideoView.setVisibility(View.INVISIBLE);
             // Call back (only in API level <19, because in API level 19+ with chromium webview it crashes)
             if (videoViewCallback != null && !videoViewCallback.getClass().getName().contains(".chromium.")) {
@@ -253,6 +284,7 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements Medi
     @SuppressWarnings("unused")
     public boolean onBackPressed() {
 
+        Toast.makeText(MainActivity.getInstance(), "Nzzzz", Toast.LENGTH_SHORT).show();
         if (isVideoFullscreen) {
             onHideCustomView();
             Toast.makeText(MainActivity.getInstance(), "Nhấn lần nữa để thoát.", Toast.LENGTH_SHORT).show();

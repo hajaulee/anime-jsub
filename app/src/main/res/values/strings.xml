@@ -31,7 +31,26 @@
     <string name="update">Cập nhật</string>
     <string name="info">Thông tin</string>
     <string name="settings">Cài đặt</string>
-
+    <string name="newest">Mới nhất</string>
+    <string name="comedy">Hài hước</string>
+    <string name="sci_Fi">Siêu nhiên</string>
+    <string name="favorite">Yêu thích</string>
+    <string name="other">Mục khác</string>
+    <string name="language">Ngôn ngữ</string>
+    <string name="sync">Tự động đồng bộ</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="update_found">Tìm thấy bản cập nhật mới.</string>
+    <string name="want_to_update">Bạn có muốn cập nhật không?</string>
+    <string name="after">Để sau</string>
+    <string name="update_to_great">Hãy cập nhật bản mới để có nhiều chức năng tuyệt vời.</string>
+    <string name="updating_history">Lịch sử cập nhật.</string>
+    <string name="update_not_found">Không tìm thấy bản cập nhật</string>
+    <string name="up_to_date">Phiên bản hiện tại là mới nhất</string>
+    <string name="back">Quay lại</string>
+    <string name="updating">Đang tải bản cập nhật</string>
+    <string name="check_update">Kiểm tra cập nhật</string>
+    <string name="find_update">Đang tìm kiếm các bản cập nhật</string>
     <!-- Error messages -->
     <string name="video_error_media_load_timeout">Media loading timed out</string>
     <string name="video_error_server_inaccessible">Media server was not reachable</string>

@@ -41,7 +41,7 @@ public class PlaybackActivity extends FragmentActivity {
         //Keep screen on and Fullscreen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_example);
+        setContentView(R.layout.activity_main_player);
 //        videoFragment = new PlaybackVideoFragment();
         videoFragment = new PlaybackVideoFragment();
         if (savedInstanceState == null) {

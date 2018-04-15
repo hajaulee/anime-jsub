@@ -121,7 +121,7 @@ public class VideoDetailsFragment extends DetailsFragment {
                 });
     }
 
-    private String timeFormat(int sec) {
+    public static String timeFormat(int sec) {
         StringBuffer buffer = new StringBuffer();
         if (sec > 86400) {
             buffer.append((sec / 86400) + "d ");
@@ -220,16 +220,22 @@ public class VideoDetailsFragment extends DetailsFragment {
 
                 Intent intent = new Intent(getActivity(), VideoEnabledWebPlayer.class);
                 intent.putExtra(DetailsActivity.MOVIE, mSelectedMovie);
-                if (action.getId() == ACTION_WATCH_NOW)
-                    intent.putExtra(DetailsActivity.EPISODE, mSelectedMovie.getCurrentEp());
-
-                else if (action.getId() == ACTION_WATCH_PREVIOUS)
-                    intent.putExtra(DetailsActivity.EPISODE, mSelectedMovie.getPreviousEp());
-
-                else if (action.getId() == ACTION_WATCH_NEXT)
-                    intent.putExtra(DetailsActivity.EPISODE, mSelectedMovie.getNextEp());
-
-                startActivity(intent);
+                switch ((int) action.getId()) {
+                    case ACTION_WATCH_NOW:
+                        intent.putExtra(DetailsActivity.EPISODE, mSelectedMovie.getCurrentEp());
+                        if (mSelectedMovie.getWatchingSecond() > 10)
+                            MainActivity.showWatchInMiddleConfirmationDialog(VideoDetailsFragment.this, intent, mSelectedMovie);
+                        else startActivity(intent);
+                        break;
+                    case ACTION_WATCH_NEXT:
+                        intent.putExtra(DetailsActivity.EPISODE, mSelectedMovie.getNextEp());
+                        startActivity(intent);
+                        break;
+                    case ACTION_WATCH_PREVIOUS:
+                        intent.putExtra(DetailsActivity.EPISODE, mSelectedMovie.getPreviousEp());
+                        startActivity(intent);
+                        break;
+                }
             }
         });
         mPresenterSelector.addClassPresenter(DetailsOverviewRow.class, detailsPresenter);

@@ -83,7 +83,6 @@ public class MainFragment extends BrowseFragment {
         setupUIElements();
 
         setupEventListeners();
-
         new LoadAnjsubData(this).load();
         Log.d(MovieList.FAVORITE_LIST, totalMovieList.size() + "");
         MovieList.loadFavoriteMovieList(this);
@@ -112,13 +111,10 @@ public class MainFragment extends BrowseFragment {
 
     public void loadRows(int rowIndex, int itemIndex) {
 
-//        if (mRowsAdapter != null){
-//            mRowsAdapter.notifyAll();
-//            return;
-//        }
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter cardPresenter = new CardPresenter();
 
+        ((MainActivity)getActivity()).hideHelloDialog();
         int i;
         for (i = 0; i < totalMovieList.size(); i++) {
 
@@ -141,7 +137,7 @@ public class MainFragment extends BrowseFragment {
 
         }
 
-        HeaderItem gridHeader = new HeaderItem(i, "Mục khác");
+        HeaderItem gridHeader = new HeaderItem(i, MainActivity.getStringR(R.string.other));
 
         GridItemPresenter mGridPresenter = new GridItemPresenter();
         ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(mGridPresenter);
@@ -159,7 +155,7 @@ public class MainFragment extends BrowseFragment {
                 this.setSelectedPosition(rowIndex, false, new ListRowPresenter.SelectItemViewHolderTask(itemIndex));
         } catch (Exception e) {
             Log.d(TAG, e.toString());
-            Toast.makeText(getActivity(), "Xin chờ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Đang nạp dữ liệu.", Toast.LENGTH_SHORT).show();
             Intent intent = getActivity().getBaseContext().getPackageManager()
                     .getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -258,24 +254,25 @@ public class MainFragment extends BrowseFragment {
                 getActivity().startActivity(intent, bundle);
             } else if (item instanceof String) {
                 if (((String) item).contains(getString(R.string.info))) {
-                    Intent intent = new Intent(getActivity(), BrowseErrorActivity.class);
-                    startActivity(intent);
+                    ((MainActivity) getActivity()).showInfoDialog();
                 } else if (((String) item).contains(getString(R.string.update))) {
                     ((MainActivity) getActivity()).showCheckUpdateDialog();
+                } else if (((String) item).contains(getString(R.string.settings))) {
+                    ((MainActivity)getActivity()).showSettingsDialog();
                 } else {
                     Toast.makeText(getActivity(), "Xin chờ một chút", Toast.LENGTH_SHORT).show();
                     switch ((String) item) {
                         case "0":
                             new LoadAnjsubData(MainFragment.this)
-                                    .load(0, "http://www.anjsub.com/search?updated-max=" + MovieList.updateMax[0] + "T00%3A25%3A00-08%3A00&max-results=9");
+                                    .load(0, "https://www.anjsub.com/search?updated-max=" + MovieList.updateMax[0] + "T00%3A25%3A00-08%3A00&max-results=9");
                             break;
                         case "1":
                             new LoadAnjsubData(MainFragment.this)
-                                    .load(1, "http://www.anjsub.com/search/label/Comedy?updated-max=" + MovieList.updateMax[1] + "T00%3A28%3A00-08%3A00&max-results=9");
+                                    .load(1, "https://www.anjsub.com/search/label/Comedy?updated-max=" + MovieList.updateMax[1] + "T00%3A28%3A00-08%3A00&max-results=9");
                             break;
                         case "2":
                             new LoadAnjsubData(MainFragment.this)
-                                    .load(2, "http://www.anjsub.com/search/label/Sci-Fi?updated-max=" + MovieList.updateMax[2] + "T00%3A37%3A00-07%3A00&max-results=9");
+                                    .load(2, "https://www.anjsub.com/search/label/Sci-Fi?updated-max=" + MovieList.updateMax[2] + "T00%3A37%3A00-07%3A00&max-results=9");
                             break;
                     }
                 }

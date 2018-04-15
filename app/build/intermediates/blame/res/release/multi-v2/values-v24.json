@@ -4,7 +4,7 @@
             "outputFile": "F:\\Android\\Project\\JsubAnime\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\HaJaU\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\2cfc123db6a63cf8d12816012a241516\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\HaJaU\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\fc81a30d3a65c3733e40bfbd5e02bb78\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\HaJaU\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\c533ee0ea4b4c1139555d94782409ab5\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\HaJaU\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\71a1ff39337d9e6d552d033becc11b22\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",

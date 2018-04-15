@@ -26,7 +26,7 @@ public class DetailsActivity extends Activity {
     public static final String SHARED_ELEMENT_NAME = "hero";
     public static final String MOVIE = "Movie";
     public static final String EPISODE = "Episode";
-
+    public static final String WATCH_TIME = "WATCH_TIME";
     private static Activity activity;
     /**
      * Called when the activity is first created.

@@ -118,11 +118,13 @@ public class AndroidAPI {
 
     @JavascriptInterface
     public void showWebView() {
-        VideoEnabledWebPlayer.SHOW_WEBVIEW = true;
+
     }
 
     @JavascriptInterface
     public void showVideo(){
-        ((VideoEnabledWebPlayer)activity).showWebView(VideoEnabledWebPlayer.SHOW_WEBVIEW);
+        sendLog("Bjjj");
+        ((VideoEnabledWebPlayer)activity).showWebView();
+        //Toast.makeText(activity,"///", Toast.LENGTH_SHORT).show();
     }
 }

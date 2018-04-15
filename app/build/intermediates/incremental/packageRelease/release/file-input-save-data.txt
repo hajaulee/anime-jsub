@@ -1,7 +1,0 @@
-#Internal package file, do not edit.
-#Thu Mar 08 21:41:28 ICT 2018
-0.baseType=DIRECTORY
-0.base=F\:\\Android\\Project\\JsubAnime\\app\\build\\intermediates\\transforms\\dex\\release\\0
-0.path=classes.dex
-0.set=DEX
-count=1

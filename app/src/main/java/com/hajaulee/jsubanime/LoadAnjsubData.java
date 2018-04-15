@@ -8,6 +8,7 @@ import android.os.NetworkOnMainThreadException;
 import android.text.Html;
 import android.util.Log;
 import android.webkit.URLUtil;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -48,13 +50,13 @@ public class LoadAnjsubData {
     }
 
     public void load() {
-        new LoadWebContentTask(fragSender, 0).execute("http://www.anjsub.com/");
-        new LoadWebContentTask(fragSender, 1).execute("http://www.anjsub.com/search/label/Comedy");
-        new LoadWebContentTask(fragSender, 2).execute("http://www.anjsub.com/search/label/Sci-Fi");
+        new LoadWebContentTask(fragSender, 0).execute("https://www.anjsub.com/");
+        new LoadWebContentTask(fragSender, 1).execute("https://www.anjsub.com/search/label/Comedy");
+        new LoadWebContentTask(fragSender, 2).execute("https://www.anjsub.com/search/label/Sci-Fi");
     }
 
     public void load(int i) {
-        int lastMovieInRow = ((MainFragment)fragSender).totalMovieList.get(i).size();
+        int lastMovieInRow = ((MainFragment) fragSender).totalMovieList.get(i).size();
         switch (i) {
             case 0:
                 new LoadWebContentTask(fragSender, 0, lastMovieInRow).execute("http://www.anjsub.com/");
@@ -68,8 +70,11 @@ public class LoadAnjsubData {
         }
     }
 
-    public void load(int i, String url){
-        int lastMovieInRow = ((MainFragment)fragSender).totalMovieList.get(i).size();
+    public void load(int i, String url) {
+        int lastMovieInRow = 0;
+        if (fragSender instanceof MainFragment) {
+            lastMovieInRow = ((MainFragment) fragSender).totalMovieList.get(i).size();
+        }
         new LoadWebContentTask(fragSender, i, lastMovieInRow).execute(url);
     }
 
@@ -90,8 +95,9 @@ public class LoadAnjsubData {
             indexInTotalMovieList = i;
             this.fragSender = sender;
         }
+
         public LoadWebContentTask(Fragment sender, int i, int j) {
-            this(sender,i);
+            this(sender, i);
             lastItemInRow = j;
         }
 
@@ -110,7 +116,9 @@ public class LoadAnjsubData {
                 Log.d("LoadAnjsub:", "START");
                 URL web = new URL(URL);
                 System.setProperty("http.agent",
-                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36");
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)" +
+                                " Chrome/64.0.3282.186 Safari/537.36");
+                System.setProperty("http.keepAlive", "false");
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(
                                 web.openStream()));
@@ -261,14 +269,35 @@ public class LoadAnjsubData {
                 }
 
             } else { // Load Movie list
+                LogThis("Load Movie list");
                 try {
                     final List<Movie> movieList = loadMovieList();
 
+                    if (indexInTotalMovieList == SearchFragment.TEST_SEARCH) {// Test serach
+                        // Do nothing
+                        //This is preparing for connection
+                        Toast.makeText(fragSender.getActivity(), "Prepare", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (indexInTotalMovieList == SearchFragment.INDEX) { // Load search result
+                        Log.d("Search::", "End seach");
+                        SearchFragment.searchResult = movieList;
+                        if (fragSender instanceof SearchFragment) {
+                                    if (movieList.isEmpty()) {
+                                        Toast.makeText(fragSender.getActivity(),
+                                                "Không tìm thấy kết quả", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        ((SearchFragment) fragSender).setSearchResultAdapter(movieList);
+                                    }
+                        }
+                        return;
+                    }
                     final MainFragment fragment = (MainFragment) fragSender;
                     try {
                         fragment.getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+
                                 fragment.totalMovieList.set(indexInTotalMovieList, movieList);
                                 if (MovieList.allLoaded(fragment.totalMovieList))
                                     fragment.loadRows(indexInTotalMovieList, lastItemInRow);
@@ -317,7 +346,7 @@ public class LoadAnjsubData {
         }
 
         private void LogThis(String s) {
-            Log.d("LoadAnjsub:", s);
+            Log.d("LoadAnjsub::", s);
         }
 
         private String getCategory(String[] movieBlockComponent) {
@@ -341,35 +370,41 @@ public class LoadAnjsubData {
         }
 
         protected List<Movie> loadMovieList() throws UnsupportedEncodingException {
-            List<Movie> list = ((MainFragment)fragSender).totalMovieList.get(indexInTotalMovieList);
-            if(list == null)
+            List<Movie> list = null;
+            if (fragSender instanceof MainFragment)
+                list = ((MainFragment) fragSender).totalMovieList.get(indexInTotalMovieList);
+            if (list == null)
                 list = new ArrayList<>();
             int openTagOfBlock = 0;
             int closeTagOfBlock = 0;
             int openWaktuClass = 0;
             int closeWaktuClass = 0;
+            LogThis("Create movie list");
             for (int index = 0; index < 18; ++index) {
 
                 openTagOfBlock = webContent.indexOf("<article", closeTagOfBlock + 1);
                 closeTagOfBlock = webContent.indexOf("</article", openTagOfBlock + 1);
 
-                openWaktuClass = webContent.indexOf("'waktu'", closeWaktuClass +1);
+                openWaktuClass = webContent.indexOf("'waktu'", closeWaktuClass + 1);
                 closeWaktuClass = webContent.indexOf("</span>", openWaktuClass + 1);
-                if (openTagOfBlock == -1 || closeTagOfBlock == -1)
+                if (openTagOfBlock == -1 || closeTagOfBlock == -1) {
+                    LogThis("Block Not found");
+                    LogThis(webContent.toString());
                     break;
-
+                }else
+                    LogThis("" + index);
                 String updateTime = webContent
                         .substring(openWaktuClass + 8, closeWaktuClass)
                         .replaceAll("\\<.*?>", "");
                 DateFormat df = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
                 DateFormat ndf = new SimpleDateFormat("yyyy-MM-dd");
                 Date d;
-                try{
+                try {
                     d = df.parse(updateTime);
                     MovieList.updateMax[indexInTotalMovieList] = ndf.format(d);
                     LogThis("Time:" + ndf.format(d));
-                }catch (Exception e){
-                    LogThis("Invalid time: \"" + updateTime + "\"" + e.toString() );
+                } catch (Exception e) {
+                    LogThis("Invalid time: \"" + updateTime + "\"" + e.toString());
                 }
                 String movieBlock = webContent.substring(openTagOfBlock, closeTagOfBlock);
                 String movieUrl = getURL(movieBlock);
@@ -388,6 +423,7 @@ public class LoadAnjsubData {
                 new LoadWebContentTask(movie, LOAD_ANIME_TASK.LOAD_DESCRIPTION)
                         .execute(movie.getVideoUrl());
                 list.add(movie);
+                LogThis(movie.toString());
                 MovieList.totalMovieList.add(movie);
             }
             return list;
