@@ -48,7 +48,7 @@ public class AndroidAPI {
         String[] arrayEp = epList.replaceAll("( | )+", MovieDetailsView.SEPARATOR).split(MovieDetailsView.SEPARATOR);
 
         movie.setEpisodeList(arrayEp);
-        if(MovieList.isLiked(movie)){
+        if (MovieList.isLiked(movie)) {
             MovieList.getMovieFromFavoriteList(movie).setEpisodeList(arrayEp);
             MovieList.saveFavoriteMovieList(null, MovieList.SaveAction.REMOVE);
         }
@@ -100,7 +100,7 @@ public class AndroidAPI {
         intent.putExtra(DetailsActivity.EPISODE, mSelectedMovie.getNextEp());
         DetailsActivity.getInstance().startActivity(intent);
 
-        message("Xem tập tiếp theo: Tập " + mSelectedMovie.getNextEp());
+            message(String.format(MainActivity.getStringR(R.string.watch_next_ep),mSelectedMovie.getNextEp()));
         activity.finish();
     }
 
@@ -111,8 +111,7 @@ public class AndroidAPI {
         intent.putExtra(DetailsActivity.MOVIE, mSelectedMovie);
         intent.putExtra(DetailsActivity.EPISODE, mSelectedMovie.getPreviousEp());
         DetailsActivity.getInstance().startActivity(intent);
-
-        message("Xem tập trước: Tập " + mSelectedMovie.getPreviousEp());
+        message(String.format(MainActivity.getStringR(R.string.watch_previous_ep),mSelectedMovie.getPreviousEp()));
         activity.finish();
     }
 
@@ -122,9 +121,9 @@ public class AndroidAPI {
     }
 
     @JavascriptInterface
-    public void showVideo(){
+    public void showVideo() {
         sendLog("Bjjj");
-        ((VideoEnabledWebPlayer)activity).showWebView();
+        ((VideoEnabledWebPlayer) activity).showWebView();
         //Toast.makeText(activity,"///", Toast.LENGTH_SHORT).show();
     }
 }

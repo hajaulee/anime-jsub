@@ -1,7 +1,9 @@
 package com.hajaulee.jsubanime;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.DisplayMetrics;
@@ -95,20 +97,35 @@ public class VideoEnabledWebPlayer extends Activity {
         } else {
             seek = true;
         }
-        movie.setCurrentEp((episode == null) ? null : episode.toString());
+        movie.setCurrentEp((episode == null) ? "" : episode.toString());
         movie.setWatchingSecond(0);
         MovieList.saveFavoriteMovieList(null, MovieList.SaveAction.REMOVE);
 
         dialog = new ProgressDialog(this);
-        dialog.setMessage(Html.fromHtml("<font color=\"black\">Đang chuẩn bị video...</font>"));
-        dialog.setCancelable(true);
+        dialog.setMessage(Html.fromHtml("<font color=\"black\">"+ MainActivity.getStringR(R.string.loading_video)+"</font>"));
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setInverseBackgroundForced(true);
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.background_light);
+        dialog.setOnKeyListener(new Dialog.OnKeyListener() {
+
+            @Override
+            public boolean onKey(DialogInterface arg0, int keyCode,
+                                 KeyEvent event) {
+                // TODO Auto-generated method stub
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    finish();
+                    webView.destroy();
+                    dialog.dismiss();
+                }
+                return true;
+            }
+        });
+        if (dialog.getWindow() != null)
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.background_light);
         dialog.show();
 
         // Init webView
 
-        if (PreloadNextEpisode.equals(movie) && PreloadNextEpisode.LOADED) {
+        if (PreloadNextEpisode.equals(movie)) {
             LOADED = true;
             webView = PreloadNextEpisode.getWebView();
         } else {
@@ -154,7 +171,7 @@ public class VideoEnabledWebPlayer extends Activity {
                     getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
                     isFullScreen = true;
-                    Toast.makeText(getApplicationContext(), "Xem toàn màn hình", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), MainActivity.getStringR(R.string.fullscreen), Toast.LENGTH_SHORT).show();
                     webView.loadUrl(VIDEO_FINISH_EVENT);
 //                    runScriptOnWebFinish();
 
@@ -183,7 +200,21 @@ public class VideoEnabledWebPlayer extends Activity {
         }
 
         if (LOADED) {
-            runScriptOnWebFinish();
+
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (!PreloadNextEpisode.loadingFinished) {
+                        webView.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                runScriptOnWebFinish();
+                            }
+                        }, 100);
+                        this.cancel();
+                    }
+                }
+            }, 0, 100);
             Log.d("java", "aaass");
         } else {
             webView.loadUrl(movie.getFirstEpisodeLink() + "?v=episode" + episode + "&m=1");
@@ -213,6 +244,9 @@ public class VideoEnabledWebPlayer extends Activity {
 
     }
 
+    public boolean isFullScreen() {
+        return isFullScreen;
+    }
     public void runScriptOnWebFinish() {
 
         webView.loadUrl("javascript:(function(){" +
@@ -266,8 +300,11 @@ public class VideoEnabledWebPlayer extends Activity {
                     new AndroidAPI(this).previousEp();
                     break;
                 case KeyEvent.KEYCODE_BACK:
-                    if (!DOUBLE_BACK_PRESSED) {
-                        Toast.makeText(this, "Nhấn lần nữa để thoát.", Toast.LENGTH_SHORT).show();
+                    if (DOUBLE_BACK_PRESSED) {
+                        webView.destroy();
+                        this.finish();
+                    } else {
+                        Toast.makeText(this, MainActivity.getStringR(R.string.twice_press_to_exit), Toast.LENGTH_SHORT).show();
                         webView.loadUrl(CURRENT_PLAY_TIME);
                         DOUBLE_BACK_PRESSED = true;
                         new Timer().schedule(new TimerTask() {
@@ -276,9 +313,6 @@ public class VideoEnabledWebPlayer extends Activity {
                                 DOUBLE_BACK_PRESSED = false;
                             }
                         }, 2000);
-                    } else {
-                        webView.destroy();
-                        this.finish();
                     }
                     return true;
             }
@@ -296,6 +330,11 @@ public class VideoEnabledWebPlayer extends Activity {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dialog.dismiss();
+    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
@@ -377,7 +416,7 @@ public class VideoEnabledWebPlayer extends Activity {
             @Override
             public void run() {
                 Log.d("Runnable", "Dismiss dialog:");
-                if (isFullScreen || !dialog.isShowing()) {
+                if (isFullScreen) {
                     VideoEnabledWebPlayer.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

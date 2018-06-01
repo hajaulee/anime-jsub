@@ -146,7 +146,7 @@ public class VideoEnabledWebChromeClient extends WebChromeClient implements Medi
                 @Override
                 public void run() {
                     Log.d("Runable", "Show video view");
-                   if( !webPlayer.dialog.isShowing()){
+                   if( !webPlayer.dialog.isShowing() && webPlayer.isFullScreen()){
                        new Timer().schedule(new TimerTask() {
                            @Override
                            public void run() {

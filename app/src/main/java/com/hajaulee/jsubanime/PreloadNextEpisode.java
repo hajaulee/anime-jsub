@@ -11,10 +11,10 @@ public class PreloadNextEpisode {
     private static VideoEnabledWebView webView;
     private static Movie thisMovie;
     private static CharSequence episode;
-    public static boolean LOADED = false;
-
+    public static boolean loadingFinished = true;
+    public static boolean redirect = false;
     public static void preLoad(VideoEnabledWebPlayer ac, Movie movie) {
-        LOADED = false;
+        loadingFinished = false;
         thisMovie = movie;
         episode = movie.getNextEp();
         webView = new VideoEnabledWebView(ac);
@@ -28,18 +28,30 @@ public class PreloadNextEpisode {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // view.loadUrl(url);
+                if (!loadingFinished) {
+                    redirect = true;
+                }
+
+                loadingFinished = false;
                 if (url.contains("www.anjsub.com/p")) {
                     webView.loadUrl(url);
                 }
                 return true;
             }
-
             @Override
             public void onPageFinished(WebView w, String url) {
                 super.onPageFinished(w, url);
+
+                if(!redirect){
+                    loadingFinished = true;
+                }
+
+                if(loadingFinished && !redirect){
+                    //HIDE LOADING IT HAS FINISHED
+                } else{
+                    redirect = false;
+                }
                 Log.d("xxxonPageFinished", webView.getUrl());
-                LOADED = true;
                 webView.loadUrl(VideoEnabledWebPlayer.VIDEO_START_EVENT);
             }
         });

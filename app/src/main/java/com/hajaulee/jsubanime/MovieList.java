@@ -14,12 +14,12 @@
 
 package com.hajaulee.jsubanime;
 
-import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -35,12 +35,16 @@ public final class MovieList {
     public static List<Movie> favoriteMovies;
     public static List<Movie> totalMovieList = new ArrayList<>();
     public static final String FAVORITE_LIST = "FAVORITE_LIST";
-    public static final String MOVIE_CATEGORY[] = {
-            MainActivity.getStringR(R.string.newest),
-            MainActivity.getStringR(R.string.comedy),
-            MainActivity.getStringR(R.string.sci_Fi),
-            MainActivity.getStringR(R.string.favorite)
-    };
+    public static final List<String> MOVIE_CATEGORY = new ArrayList<>(4);
+
+    public static void initCategory() {
+        MOVIE_CATEGORY.clear();
+        MOVIE_CATEGORY.add(MainActivity.getStringR(R.string.newest));
+        MOVIE_CATEGORY.add(MainActivity.getStringR(R.string.comedy));
+        MOVIE_CATEGORY.add(MainActivity.getStringR(R.string.sci_Fi));
+        MOVIE_CATEGORY.add(MainActivity.getStringR(R.string.favorite));
+
+    }
 
     private static List<Movie> list;
     private static long count = 0;
@@ -94,25 +98,36 @@ public final class MovieList {
     }
 
     public static void saveFavoriteMovieList(Movie movie, SaveAction saveAction) {
+        FileOutputStream favoriteData = null;
+        ObjectOutputStream oos = null;
         try {
-            FileOutputStream favoriteData = new FileOutputStream(
+            favoriteData = new FileOutputStream(
                     MainActivity.getInstance().getApplicationInfo().dataDir + File.separatorChar + MovieList.FAVORITE_LIST);
-            ObjectOutputStream oos = new ObjectOutputStream(favoriteData);
+            oos = new ObjectOutputStream(favoriteData);
             oos.writeObject(MovieList.favoriteMovies);
             oos.close();
 
-
-            ArrayObjectAdapter favoriteAdapter = MainFragment.getFavoriteAdapter();
             if (saveAction == SaveAction.ADD) {
-                favoriteAdapter.add(movie);
+                MainFragment.getFavoriteAdapter().add(movie);
             } else if (saveAction == SaveAction.REMOVE) {
-                favoriteAdapter.remove(movie);
+                MainFragment.getFavoriteAdapter().remove(movie);
             }
-            synchronized (favoriteAdapter) {
-                favoriteAdapter.notify();
+            synchronized (MainFragment.getFavoriteAdapter()) {
+                MainFragment.getFavoriteAdapter().notify();
             }
         } catch (Exception e1) {
             Log.d(FAVORITE_LIST, e1.toString());
+        } finally {
+            try {
+                if (oos != null) {
+                    oos.close();
+                    favoriteData.close();
+                }
+            } catch (Exception e) {
+                Log.d("Saving error", e.toString());
+            } finally {
+                Log.d("Finaly", "Saving error");
+            }
         }
     }
 
@@ -125,6 +140,7 @@ public final class MovieList {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     public static void loadFavoriteMovieList(MainFragment mf) {
         try {
             FileInputStream favoriteData = new FileInputStream(
@@ -137,6 +153,52 @@ public final class MovieList {
             favoriteMovies = new ArrayList<>();
             saveFavoriteMovieList(null, SaveAction.ADD);
             Log.d(FAVORITE_LIST, e1.toString());
+        }
+    }
+
+    public static void saveFile(String fileName, String content) {
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(
+                    MainActivity.getInstance().getApplicationInfo().dataDir +
+                            File.separatorChar +
+                            fileName);
+            byte[] b = content.getBytes();
+            outputStream.write(b);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.d("IOException", fileName);
+        } finally {
+            try {
+                if (outputStream != null)
+                    outputStream.close();
+            } catch (IOException e) {
+                Log.d("IOException", fileName);
+            } finally {
+                Log.d("Exception", "Error: " + fileName);
+            }
+        }
+    }
+
+    public static String readFile(String fileName) {
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(
+                    MainActivity.getInstance().getApplicationInfo().dataDir +
+                            File.separatorChar +
+                            fileName);
+            byte[] b = new byte[fileInputStream.available()];
+            fileInputStream.read(b);
+            return new String(b);
+        } catch (IOException e) {
+            return null;
+        } finally {
+            try {
+                if (fileInputStream != null)
+                    fileInputStream.close();
+            } catch (IOException e) {
+                Log.d("IOException", fileName);
+            }
         }
     }
 

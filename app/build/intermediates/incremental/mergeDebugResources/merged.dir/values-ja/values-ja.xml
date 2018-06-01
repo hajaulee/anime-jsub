@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"ホームへ移動"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s、%2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s、%2$s、%3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"上へ移動"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"その他のオプション"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"完了"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"すべて表示"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"アプリの選択"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"OFF"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"ON"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"検索…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"検索キーワードを削除"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"検索キーワード"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"検索"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"検索キーワードを送信"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"音声検索"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"共有"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"%sと共有"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"折りたたむ"</string>
+    <string name="add_to_favorite">気に入りに追加</string>
+    <string name="after">後で</string>
+    <string name="app_name">JsubAnime</string>
+    <string name="back">戻る</string>
+    <string name="browse_title"><![CDATA[HaJaU Play]]></string>
+    <string name="buy_1">Buy and Own</string>
+    <string name="buy_2">AT $9.99</string>
+    <string name="check_update">ソフトウェア更新</string>
+    <string name="comedy">コメディー</string>
+    <string name="continue_watching">見ていたところに見ますか？</string>
+    <string name="current_ep">第%s話の%sに見ていました</string>
+    <string name="delete_from_favorite">気に入りから削除</string>
+    <string name="dismiss_error">Dismiss</string>
+    <string name="duration">24min/Eps</string>
+    <string name="episode">第%s話</string>
+    <string name="error_fragment">Error Fragment</string>
+    <string name="error_fragment_message">An error occurred</string>
+    <string name="favorite">気に入り</string>
+    <string name="find_update">更新を確認中…</string>
+    <string name="fullscreen">フルスクリーン</string>
+    <string name="genres">ジャンル</string>
+    <string name="grid_view">Grid View</string>
+    <string name="info">アプリについて</string>
+    <string name="language">言語</string>
+    <string msgid="4541442045214207774" name="lb_control_display_fast_forward_multiplier">"%1$dX"</string>
+    <string msgid="3097220783222910245" name="lb_control_display_rewind_multiplier">"%1$dX"</string>
+    <string msgid="2440386660906697298" name="lb_date_separator">"/"</string>
+    <string msgid="8842094924543063706" name="lb_guidedaction_continue_title">"続行"</string>
+    <string msgid="4015190340667946245" name="lb_guidedaction_finish_title">"完了"</string>
+    <string msgid="3650250994187305396" name="lb_media_player_error">"MediaPlayer エラーコード: %1$d、追加: %2$d"</string>
+    <string msgid="6215811486591629025" name="lb_navigation_menu_contentDescription">"ナビゲーション メニュー"</string>
+    <string msgid="2918313444257732434" name="lb_onboarding_accessibility_next">"次へ"</string>
+    <string msgid="6961440391306351139" name="lb_onboarding_get_started">"使ってみる"</string>
+    <string msgid="6133362019475930048" name="lb_playback_controls_closed_captioning_disable">"字幕を無効にする"</string>
+    <string msgid="2429655367176440226" name="lb_playback_controls_closed_captioning_enable">"字幕を有効にする"</string>
+    <string msgid="8569951318244687220" name="lb_playback_controls_fast_forward">"早送り"</string>
+    <string msgid="1058753672110224526" name="lb_playback_controls_fast_forward_multiplier">"早送り%1$dX"</string>
+    <string msgid="8940984081242033574" name="lb_playback_controls_hidden">"メディア コントロールは非表示になっています。表示するには D-pad を押してください"</string>
+    <string msgid="8637371582779057866" name="lb_playback_controls_high_quality_disable">"高品質を無効にする"</string>
+    <string msgid="202415780019335254" name="lb_playback_controls_high_quality_enable">"高品質を有効にする"</string>
+    <string msgid="2330770008796987655" name="lb_playback_controls_more_actions">"その他の操作"</string>
+    <string msgid="6189521112079849518" name="lb_playback_controls_pause">"一時停止"</string>
+    <string msgid="3040035547765350690" name="lb_playback_controls_picture_in_picture">"PIP モードに移動"</string>
+    <string msgid="731953341987346903" name="lb_playback_controls_play">"再生"</string>
+    <string msgid="6730354406289599000" name="lb_playback_controls_repeat_all">"全曲を繰り返し"</string>
+    <string msgid="87476947476529036" name="lb_playback_controls_repeat_none">"繰り返しなし"</string>
+    <string msgid="3285202316452203619" name="lb_playback_controls_repeat_one">"1曲を繰り返し"</string>
+    <string msgid="2227196334132350684" name="lb_playback_controls_rewind">"巻き戻し"</string>
+    <string msgid="1640629531440849942" name="lb_playback_controls_rewind_multiplier">"巻き戻し%1$dX"</string>
+    <string msgid="6382160135512023238" name="lb_playback_controls_shown">"メディア コントロールは表示されています"</string>
+    <string msgid="8388150597335115226" name="lb_playback_controls_shuffle_disable">"シャッフルを無効にする"</string>
+    <string msgid="1099874107835264529" name="lb_playback_controls_shuffle_enable">"シャッフルを有効にする"</string>
+    <string msgid="2946499493161095772" name="lb_playback_controls_skip_next">"次の曲にスキップ"</string>
+    <string msgid="2326801832933178348" name="lb_playback_controls_skip_previous">"前の曲にスキップ"</string>
+    <string msgid="4498041193172964797" name="lb_playback_controls_thumb_down">"イマイチの選択を解除"</string>
+    <string msgid="2936020280629424365" name="lb_playback_controls_thumb_down_outline">"イマイチを選択"</string>
+    <string msgid="6530420347129222601" name="lb_playback_controls_thumb_up">"グッドの選択を解除"</string>
+    <string msgid="1577637924003500946" name="lb_playback_controls_thumb_up_outline">"グッドを選択"</string>
+    <string msgid="3208380806582304911" name="lb_playback_time_separator">"/"</string>
+    <string msgid="8325490927970116252" name="lb_search_bar_hint">"検索"</string>
+    <string msgid="5511270823320183816" name="lb_search_bar_hint_speech">"音声検索"</string>
+    <string msgid="1627103380996590035" name="lb_search_bar_hint_with_title">"<ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g>を検索"</string>
+    <string msgid="2712734639766312034" name="lb_search_bar_hint_with_title_speech">"<ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g>を音声検索"</string>
+    <string msgid="2763247350845477227" name="lb_time_separator">":"</string>
+    <string name="like">❤ 気に入る</string>
+    <string name="loading_video">ビデオを読み込み中…</string>
+    <string name="movie">Movie</string>
+    <string name="movie_title">タイトル</string>
+    <string name="newest">最新</string>
+    <string name="next_ep">第６話</string>
+    <string name="no">いいえ</string>
+    <string msgid="5651268540267663887" name="orb_search_action">"検索操作"</string>
+    <string name="other">他の項目</string>
+    <string name="permission_request">更新のため、ストレージアクセス権限が必要です。</string>
+    <string name="personal_settings">Personal Settings</string>
+    <string name="press_like_to_save_history">「気に入る」を押し、聴視履歴出来る!</string>
+    <string name="previous_ep">第４話</string>
+    <string name="related_movies">Related Videos</string>
+    <string name="rent_1">Rent By Day</string>
+    <string name="rent_2">From $1.99</string>
+    <string name="restart">再起動確認</string>
+    <string name="restart_confirm">別の言語を導入する為、再起動が必要です。</string>
+    <string name="sci_Fi">フィクション</string>
+    <string msgid="146198913615257606" name="search_menu_title">"検索"</string>
+    <string name="search_result">検索結果：</string>
+    <string name="separator">-</string>
+    <string name="settings">設定</string>
+    <string name="should_start">shouldStart</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="summary">纏め</string>
+    <string name="sync">自動同期</string>
+    <string name="sync_fail">同期が失敗</string>
+    <string name="sync_success">同期が成功</string>
+    <string name="twice_press_to_exit">もう一回戻るボタンを押し、終了</string>
+    <string name="unlike">💔 辞める</string>
+    <string name="up_to_date">既に利用可能な最新バージョンに更新されています。</string>
+    <string name="update">更新</string>
+    <string name="update_found">最新バージョン発見。</string>
+    <string name="update_not_found">今のバージョンは最新</string>
+    <string name="update_to_great">更新して新しく素晴らしい機能を手に入りなさい。</string>
+    <string name="updating">最新バージョンをダウンロード中</string>
+    <string name="updating_history">更新歴史</string>
+    <string name="video_error_media_load_timeout">Media loading timed out</string>
+    <string name="video_error_server_inaccessible">Media server was not reachable</string>
+    <string name="video_error_unknown_error">Failed to load video</string>
+    <string name="view_more">さらに見る</string>
+    <string name="wait">少々お待ちください</string>
+    <string name="want_to_update">最新バージョンをインストール？</string>
+    <string name="watch_next">次の話</string>
+    <string name="watch_next_ep">次の話: 第%s話</string>
+    <string name="watch_now">すぐに見る</string>
+    <string name="watch_previous">前の話</string>
+    <string name="watch_previous_ep">前の話: 第%s話</string>
+    <string name="watch_trailer_1">Watch trailer</string>
+    <string name="watch_trailer_2">FREE</string>
+    <string name="year">(2018)</string>
+    <string name="yes">はい</string>
+</resources>

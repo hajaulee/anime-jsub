@@ -44,11 +44,11 @@ public class MovieDetailsView extends Presenter {
             if (isLikeButton) {
                 boolean like = button.getText().equals(MainActivity.getInstance().getString(R.string.like));
                 if (like) {
-                    Toast.makeText(MainActivity.getInstance(), "Đã thêm video vào mục yêu thích", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.getInstance(), MainActivity.getStringR(R.string.add_to_favorite), Toast.LENGTH_SHORT).show();
                     MovieList.addFavorite(movie);
                     button.setText(R.string.unlike);
                 } else {
-                    Toast.makeText(MainActivity.getInstance(), "Đã xóa video ra khỏi mục yêu thích", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.getInstance(), MainActivity.getStringR(R.string.delete_from_favorite), Toast.LENGTH_SHORT).show();
                     MovieList.removeFavorite(movie);
                     button.setText(R.string.like);
                 }

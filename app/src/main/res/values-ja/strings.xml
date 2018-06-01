@@ -7,12 +7,12 @@
     <string name="personal_settings">Personal Settings</string>
     <string name="watch_trailer_1">Watch trailer</string>
     <string name="watch_trailer_2">FREE</string>
-    <string name="watch_now">Xem ngay</string>
-    <string name="watch_previous">Tập trước</string>
-    <string name="watch_next">Tập sau</string>
-    <string name="current_ep">Đang xem tập 1 lúc 00:00</string>
-    <string name="previous_ep">Tập 4</string>
-    <string name="next_ep">Tập 6</string>
+    <string name="watch_now">すぐに見る</string>
+    <string name="watch_previous">前の話</string>
+    <string name="watch_next">次の話</string>
+    <string name="current_ep">第%s話の%sに見ていました</string>
+    <string name="previous_ep">第４話</string>
+    <string name="next_ep">第６話</string>
     <string name="rent_1">Rent By Day</string>
     <string name="rent_2">From $1.99</string>
     <string name="buy_1">Buy and Own</string>
@@ -27,7 +27,7 @@
     <string name="duration">24min/Eps</string>
     <string name="year">(2018)</string>
     <string name="separator">-</string>
-    <string name="loading_video">読み込み中…</string>
+    <string name="loading_video">ビデオを読み込み中…</string>
     <string name="update">更新</string>
     <string name="info">アプリについて</string>
     <string name="settings">設定</string>
@@ -52,6 +52,23 @@
     <string name="updating">最新バージョンをダウンロード中</string>
     <string name="check_update">ソフトウェア更新</string>
     <string name="find_update">更新を確認中…</string>
+    <string name="restart">再起動確認</string>
+    <string name="restart_confirm">別の言語を導入する為、再起動が必要です。</string>
+    <string name="wait">少々お待ちください</string>
+    <string name="press_like_to_save_history">「気に入る」を押し、聴視履歴出来る!</string>
+    <string name="view_more">さらに見る</string>
+    <string name="add_to_favorite">気に入りに追加</string>
+    <string name="delete_from_favorite">気に入りから削除</string>
+    <string name="twice_press_to_exit">もう一回戻るボタンを押し、終了</string>
+    <string name="fullscreen">フルスクリーン</string>
+    <string name="episode">第%s話</string>
+    <string name="watch_next_ep">次の話: 第%s話</string>
+    <string name="watch_previous_ep">前の話: 第%s話</string>
+    <string name="search_result">検索結果：</string>
+    <string name="sync_success">同期が成功</string>
+    <string name="sync_fail">同期が失敗</string>
+    <string name="permission_request">更新のため、ストレージアクセス権限が必要です。</string>
+    <string name="continue_watching">見ていたところに見ますか？</string>
 
     <!-- Error messages -->
     <string name="video_error_media_load_timeout">Media loading timed out</string>

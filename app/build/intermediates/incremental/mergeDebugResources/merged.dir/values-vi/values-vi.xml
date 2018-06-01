@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Điều hướng về trang chủ"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Điều hướng lên trên"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Thêm tùy chọn"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Xong"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Xem tất cả"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Chọn một ứng dụng"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"TẮT"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"BẬT"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Tìm kiếm…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Xóa truy vấn"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Tìm kiếm truy vấn"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Tìm kiếm"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Gửi truy vấn"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Tìm kiếm bằng giọng nói"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Chia sẻ với"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Chia sẻ với %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Thu gọn"</string>
+    <string name="add_to_favorite">Đã thêm video vào mục yêu thích</string>
+    <string name="after">Để sau</string>
+    <string name="app_name">JsubAnime</string>
+    <string name="back">Quay lại</string>
+    <string name="browse_title"><![CDATA[HaJaU Play]]></string>
+    <string name="buy_1">Buy and Own</string>
+    <string name="buy_2">AT $9.99</string>
+    <string name="check_update">Kiểm tra cập nhật</string>
+    <string name="comedy">Hài hước</string>
+    <string name="continue_watching">Bạn có muốn xem tiếp tại phần bỏ dở không?</string>
+    <string name="current_ep">Đang xem tập %s lúc %s</string>
+    <string name="delete_from_favorite">Đã xóa video ra khỏi mục yêu thích</string>
+    <string name="dismiss_error">Dismiss</string>
+    <string name="duration">24min/Eps</string>
+    <string name="episode">Tập %s</string>
+    <string name="error_fragment">Error Fragment</string>
+    <string name="error_fragment_message">An error occurred</string>
+    <string name="favorite">Yêu thích</string>
+    <string name="find_update">Đang tìm kiếm các bản cập nhật</string>
+    <string name="fullscreen">Đang xem toàn màn hình</string>
+    <string name="genres">Thể loại</string>
+    <string name="grid_view">Grid View</string>
+    <string name="info">Thông tin</string>
+    <string name="language">Ngôn ngữ</string>
+    <string msgid="4541442045214207774" name="lb_control_display_fast_forward_multiplier">"%1$dX"</string>
+    <string msgid="3097220783222910245" name="lb_control_display_rewind_multiplier">"%1$dX"</string>
+    <string msgid="2440386660906697298" name="lb_date_separator">"/"</string>
+    <string msgid="8842094924543063706" name="lb_guidedaction_continue_title">"Tiếp tục"</string>
+    <string msgid="4015190340667946245" name="lb_guidedaction_finish_title">"Hoàn tất"</string>
+    <string msgid="3650250994187305396" name="lb_media_player_error">"Mã lỗi MediaPlayer %1$d %2$d bổ sung"</string>
+    <string msgid="6215811486591629025" name="lb_navigation_menu_contentDescription">"Menu điều hướng"</string>
+    <string msgid="2918313444257732434" name="lb_onboarding_accessibility_next">"Tiếp theo"</string>
+    <string msgid="6961440391306351139" name="lb_onboarding_get_started">"BẮT ĐẦU"</string>
+    <string msgid="6133362019475930048" name="lb_playback_controls_closed_captioning_disable">"Tắt phụ đề"</string>
+    <string msgid="2429655367176440226" name="lb_playback_controls_closed_captioning_enable">"Bật phụ đề"</string>
+    <string msgid="8569951318244687220" name="lb_playback_controls_fast_forward">"Tua nhanh"</string>
+    <string msgid="1058753672110224526" name="lb_playback_controls_fast_forward_multiplier">"Tua đi %1$dX"</string>
+    <string msgid="8940984081242033574" name="lb_playback_controls_hidden">"Điều khiển phương tiện bị ẩn, nhấn d-pad để hiển thị"</string>
+    <string msgid="8637371582779057866" name="lb_playback_controls_high_quality_disable">"Tắt chế độ chất lượng cao"</string>
+    <string msgid="202415780019335254" name="lb_playback_controls_high_quality_enable">"Bật chế độ chất lượng cao"</string>
+    <string msgid="2330770008796987655" name="lb_playback_controls_more_actions">"Tác vụ khác"</string>
+    <string msgid="6189521112079849518" name="lb_playback_controls_pause">"Tạm dừng"</string>
+    <string msgid="3040035547765350690" name="lb_playback_controls_picture_in_picture">"Vào ảnh ở chế độ ảnh"</string>
+    <string msgid="731953341987346903" name="lb_playback_controls_play">"Phát"</string>
+    <string msgid="6730354406289599000" name="lb_playback_controls_repeat_all">"Lặp lại tất cả"</string>
+    <string msgid="87476947476529036" name="lb_playback_controls_repeat_none">"Không lặp lại"</string>
+    <string msgid="3285202316452203619" name="lb_playback_controls_repeat_one">"Lặp lại một mục"</string>
+    <string msgid="2227196334132350684" name="lb_playback_controls_rewind">"Tua lại"</string>
+    <string msgid="1640629531440849942" name="lb_playback_controls_rewind_multiplier">"Tua lại %1$dX"</string>
+    <string msgid="6382160135512023238" name="lb_playback_controls_shown">"Điều khiển phương tiện được hiển thị"</string>
+    <string msgid="8388150597335115226" name="lb_playback_controls_shuffle_disable">"Tắt phát ngẫu nhiên"</string>
+    <string msgid="1099874107835264529" name="lb_playback_controls_shuffle_enable">"Bật phát ngẫu nhiên"</string>
+    <string msgid="2946499493161095772" name="lb_playback_controls_skip_next">"Chuyển đến mục tiếp theo"</string>
+    <string msgid="2326801832933178348" name="lb_playback_controls_skip_previous">"Chuyển về mục trước"</string>
+    <string msgid="4498041193172964797" name="lb_playback_controls_thumb_down">"Bỏ chọn không thích"</string>
+    <string msgid="2936020280629424365" name="lb_playback_controls_thumb_down_outline">"Chọn không thích"</string>
+    <string msgid="6530420347129222601" name="lb_playback_controls_thumb_up">"Bỏ chọn thích"</string>
+    <string msgid="1577637924003500946" name="lb_playback_controls_thumb_up_outline">"Chọn thích"</string>
+    <string msgid="3208380806582304911" name="lb_playback_time_separator">"/"</string>
+    <string msgid="8325490927970116252" name="lb_search_bar_hint">"Tìm kiếm"</string>
+    <string msgid="5511270823320183816" name="lb_search_bar_hint_speech">"Nói để tìm kiếm"</string>
+    <string msgid="1627103380996590035" name="lb_search_bar_hint_with_title">"Tìm kiếm <ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g>"</string>
+    <string msgid="2712734639766312034" name="lb_search_bar_hint_with_title_speech">"Nói để tìm kiếm trên <ns1:g id="SEARCH_CONTEXT">%1$s</ns1:g>"</string>
+    <string msgid="2763247350845477227" name="lb_time_separator">":"</string>
+    <string name="like">❤ Yêu thích</string>
+    <string name="loading_video">Đang tải phim…</string>
+    <string name="movie">Movie</string>
+    <string name="movie_title">Tiêu đề</string>
+    <string name="newest">Mới nhất</string>
+    <string name="next_ep">Tập 6</string>
+    <string name="no">Không</string>
+    <string msgid="5651268540267663887" name="orb_search_action">"Tác vụ tìm kiếm"</string>
+    <string name="other">Mục khác</string>
+    <string name="permission_request">Hãy cấp quyền ghi bộ nhớ để ứng dụng có thể cập nhật.</string>
+    <string name="personal_settings">Personal Settings</string>
+    <string name="press_like_to_save_history">Nhấn yêu thích để lưu lịch sử xem!</string>
+    <string name="previous_ep">Tập 4</string>
+    <string name="related_movies">Related Videos</string>
+    <string name="rent_1">Rent By Day</string>
+    <string name="rent_2">From $1.99</string>
+    <string name="restart">Khởi động lại</string>
+    <string name="restart_confirm">Để thay đổi ngôn ngữ cần khởi động lại chương trình</string>
+    <string name="sci_Fi">Siêu nhiên</string>
+    <string msgid="146198913615257606" name="search_menu_title">"Tìm kiếm"</string>
+    <string name="search_result">Kết quả tìm kiếm</string>
+    <string name="separator">-</string>
+    <string name="settings">Cài đặt</string>
+    <string name="should_start">shouldStart</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="summary">Tóm tắt</string>
+    <string name="sync">Tự động đồng bộ</string>
+    <string name="sync_fail">Đồng bộ thất bại</string>
+    <string name="sync_success">Đồng bộ thành công</string>
+    <string name="twice_press_to_exit">Nhấn lần nữa để thoát.</string>
+    <string name="unlike">💔 Bỏ thích</string>
+    <string name="up_to_date">Phiên bản hiện tại là mới nhất</string>
+    <string name="update">Cập nhật</string>
+    <string name="update_found">Tìm thấy bản cập nhật mới.</string>
+    <string name="update_not_found">Không tìm thấy bản cập nhật</string>
+    <string name="update_to_great">Hãy cập nhật bản mới để có nhiều chức năng tuyệt vời.</string>
+    <string name="updating">Đang tải bản cập nhật</string>
+    <string name="updating_history">Lịch sử cập nhật.</string>
+    <string name="video_error_media_load_timeout">Media loading timed out</string>
+    <string name="video_error_server_inaccessible">Media server was not reachable</string>
+    <string name="video_error_unknown_error">Failed to load video</string>
+    <string name="view_more">Xem thêm</string>
+    <string name="wait">Xin chờ một chút</string>
+    <string name="want_to_update">Bạn có muốn cập nhật không?</string>
+    <string name="watch_next">Tập sau</string>
+    <string name="watch_next_ep">Xem tập tiếp theo: Tập %s</string>
+    <string name="watch_now">Xem ngay</string>
+    <string name="watch_previous">Tập trước</string>
+    <string name="watch_previous_ep">Xem tập trước: Tập %s</string>
+    <string name="watch_trailer_1">Watch trailer</string>
+    <string name="watch_trailer_2">FREE</string>
+    <string name="year">(2018)</string>
+    <string name="yes">Có</string>
+</resources>

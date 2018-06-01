@@ -144,23 +144,24 @@ public class VideoDetailsFragment extends DetailsFragment {
                     new Action(
                             ACTION_WATCH_NOW,
                             getResources().getString(R.string.watch_now),
-                            (mSelectedMovie.getCurrentEp() != null) ? "Đang xem tập " +
-                                    mSelectedMovie.getCurrentEp() +
-                                    " lúc " +
-                                    timeFormat(mSelectedMovie.getWatchingSecond())
-                                    : "Nhấn yêu thích để lưu lịch sử xem!")
+                            (mSelectedMovie.getCurrentEp() != null) ?
+                                    String.format(MainActivity.getStringR(R.string.current_ep),
+                                            mSelectedMovie.getCurrentEp(),
+                                            timeFormat(mSelectedMovie.getWatchingSecond()))
+                                    : MainActivity.getStringR(R.string.press_like_to_save_history))
             );
             if (mSelectedMovie.getNextEp() != null)
                 actionAdapter.add(
                         new Action(
                                 ACTION_WATCH_NEXT,
                                 getResources().getString(R.string.watch_next),
-                                "Tập " + mSelectedMovie.getNextEp()));
+                                String.format(MainActivity.getStringR(R.string.episode),mSelectedMovie.getNextEp() )));
             if (mSelectedMovie.getPreviousEp() != null)
                 actionAdapter.add(
                         new Action(
                                 ACTION_WATCH_PREVIOUS,
-                                getResources().getString(R.string.watch_previous), "Tập " + mSelectedMovie.getPreviousEp()));
+                                getResources().getString(R.string.watch_previous),
+                                String.format(MainActivity.getStringR(R.string.episode),mSelectedMovie.getPreviousEp() )));
 
             actionAdapter.notify();
 
@@ -242,7 +243,7 @@ public class VideoDetailsFragment extends DetailsFragment {
     }
 
     private void setupRelatedMovieListRow() {
-        String subcategories[] = {"Yêu thích"};
+        String subcategories[] = {MainActivity.getStringR(R.string.favorite)};
         List<Movie> list = MovieList.favoriteMovies;
 
         Collections.shuffle(list);

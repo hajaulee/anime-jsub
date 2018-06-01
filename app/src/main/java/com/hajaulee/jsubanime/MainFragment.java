@@ -113,7 +113,7 @@ public class MainFragment extends BrowseFragment {
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter cardPresenter = new CardPresenter();
-
+        MovieList.initCategory();
         ((MainActivity)getActivity()).hideHelloDialog();
         int i;
         for (i = 0; i < totalMovieList.size(); i++) {
@@ -131,7 +131,7 @@ public class MainFragment extends BrowseFragment {
             else {
                 listRowAdapter.add(String.valueOf(i));
             }
-            HeaderItem header = new HeaderItem(i, MovieList.MOVIE_CATEGORY[i]);
+            HeaderItem header = new HeaderItem(i, MovieList.MOVIE_CATEGORY.get(i));
             ListRow listRow = new ListRow(header, listRowAdapter);
             mRowsAdapter.add(listRow);
 
@@ -181,6 +181,7 @@ public class MainFragment extends BrowseFragment {
         // over title
         setHeadersState(HEADERS_ENABLED);
         setHeadersTransitionOnBackEnabled(true);
+
 
         // set fastLane (or headers) background color
         setBrandColor(getResources().getColor(R.color.fastlane_background));
@@ -260,7 +261,7 @@ public class MainFragment extends BrowseFragment {
                 } else if (((String) item).contains(getString(R.string.settings))) {
                     ((MainActivity)getActivity()).showSettingsDialog();
                 } else {
-                    Toast.makeText(getActivity(), "Xin chờ một chút", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), MainActivity.getStringR(R.string.wait), Toast.LENGTH_SHORT).show();
                     switch ((String) item) {
                         case "0":
                             new LoadAnjsubData(MainFragment.this)

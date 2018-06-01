@@ -1,0 +1,7 @@
+#Sun May 27 19:42:35 ICT 2018
+base.0=F\:\\Android\\Project\\JsubAnime\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\12
+path.1=classes.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=F\:\\Android\\Project\\JsubAnime\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\11

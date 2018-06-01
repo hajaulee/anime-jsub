@@ -107,7 +107,7 @@ public class SearchFragment extends android.support.v17.leanback.app.SearchFragm
             mItems = MovieList.favoriteMovies;
         listRowAdapter = new ArrayObjectAdapter(new CardPresenter());
         listRowAdapter.addAll(0, mItems);
-        HeaderItem header = new HeaderItem("Kết quả tìm kiếm");
+        HeaderItem header = new HeaderItem(MainActivity.getStringR(R.string.search_result));
         mRowsAdapter.add(new ListRow(header, listRowAdapter));
         //Toast.makeText(getActivity(), "Search end", Toast.LENGTH_SHORT).show();
         return mRowsAdapter;

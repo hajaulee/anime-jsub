@@ -126,6 +126,15 @@ public class Movie implements Serializable {
         else return false;
     }
 
+    @Override
+    public int hashCode() {
+        try {
+            return getVideoUrl().length();
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
     public String getGenres() {
         return genres;
     }

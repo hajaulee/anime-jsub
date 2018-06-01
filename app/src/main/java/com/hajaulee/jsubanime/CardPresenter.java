@@ -78,7 +78,7 @@ public class CardPresenter extends Presenter {
         if (item instanceof Movie)
             movie = (Movie) item;
         else if (item instanceof String) {
-            movie.setTitle("Xem thêm");
+            movie.setTitle(MainActivity.getStringR(R.string.view_more));
             movie.setGenres("");
             movie.setCardImageUrl("http://12a1.wc.lt/apk/plus.png");
         }

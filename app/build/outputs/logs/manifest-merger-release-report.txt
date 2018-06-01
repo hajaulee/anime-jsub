@@ -1,20 +1,20 @@
 -- Merging decision tree log ---
 provider#com.hajaulee.jsubanime.GenericFileProvider
-INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:51:9-59:20
+INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:59:9-67:20
 	android:grantUriPermissions
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:55:13-47
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:63:13-47
 	android:authorities
 		INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:53:13-76
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:61:13-76
 	android:exported
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:54:13-37
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:62:13-37
 	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:52:13-48
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:60:13-48
 manifest
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
-INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
-INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
-INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
 MERGED from [com.android.support:leanback-v17:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\leanback-v17-26.1.0.aar\ca02a6a1d05d31d01df03b9eafda9ce4\AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\71a1ff39337d9e6d552d033becc11b22\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-v4:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\cfddfe44b2673207f3858097064fbef6\AndroidManifest.xml:17:1-31:12
@@ -27,20 +27,20 @@ MERGED from [com.android.support:support-vector-drawable:26.1.0] C:\Users\HaJaU\
 MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\support-core-utils-26.1.0.aar\5167b6a6886fbaed4aad7f369f327cfe\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\e0be6c885cc8e1e337ad2a7a466f37ea\AndroidManifest.xml:17:1-31:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\2f60bf222c257d6641b5420c233fd8fc\AndroidManifest.xml:17:1-30:12
-INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
-INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
-INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
+INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
+INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
 	package
 		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:3:5-37
 		INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
 		INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
 		INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-62:12
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:1-70:12
 		INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:2:11-69
@@ -53,7 +53,7 @@ ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:6:5-71
 	android:name
 		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:6:22-68
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:7:5-80
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:7:5-81
 	android:name
 		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:7:22-78
 uses-feature#android.hardware.touchscreen
@@ -68,8 +68,14 @@ ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:12:5-14
 		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:14:9-33
 	android:name
 		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:13:9-49
+uses-feature#android.hardware.microphone
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:15:5-17:35
+	android:required
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:17:9-33
+	android:name
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:16:9-51
 application
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:16:5-60:19
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:19:5-68:19
 MERGED from [com.android.support:leanback-v17:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\leanback-v17-26.1.0.aar\ca02a6a1d05d31d01df03b9eafda9ce4\AndroidManifest.xml:22:5-26:19
 MERGED from [com.android.support:leanback-v17:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\leanback-v17-26.1.0.aar\ca02a6a1d05d31d01df03b9eafda9ce4\AndroidManifest.xml:22:5-26:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\71a1ff39337d9e6d552d033becc11b22\AndroidManifest.xml:25:5-29:19
@@ -95,79 +101,79 @@ MERGED from [com.android.support:support-compat:26.1.0] C:\Users\HaJaU\.gradle\c
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\2f60bf222c257d6641b5420c233fd8fc\AndroidManifest.xml:24:5-28:19
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\2f60bf222c257d6641b5420c233fd8fc\AndroidManifest.xml:24:5-28:19
 	android:supportsRtl
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:20:9-35
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:23:9-35
 	android:label
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:19:9-41
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:22:9-41
 	android:icon
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:18:9-40
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:21:9-40
 	android:allowBackup
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:17:9-35
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:20:9-35
 	android:theme
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:21:9-46
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:24:9-46
 activity#com.hajaulee.jsubanime.MainActivity
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:22:9-34:20
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:25:9-39:20
 	android:screenOrientation
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:28:13-50
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:32:13-50
 	android:label
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:26:13-45
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:30:13-45
 	android:icon
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:25:13-44
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:29:13-44
 	android:banner
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:24:13-51
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:28:13-51
 	android:logo
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:27:13-49
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:31:13-49
 	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:23:13-41
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:27:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER+category:name:android.intent.category.LEANBACK_LAUNCHER
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:29:13-33:29
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:33:13-38:29
 action#android.intent.action.MAIN
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:30:17-69
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:34:17-69
 	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:30:25-66
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:34:25-66
 category#android.intent.category.LAUNCHER
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:31:17-77
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:36:17-77
 	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:31:27-74
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:36:27-74
 category#android.intent.category.LEANBACK_LAUNCHER
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:32:17-86
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:37:17-86
 	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:32:27-83
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:37:27-83
 activity#com.hajaulee.jsubanime.DetailsActivity
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:35:9-90
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:40:9-42:53
 	android:screenOrientation
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:35:51-88
-	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:35:19-50
-activity#com.hajaulee.jsubanime.PlaybackActivity
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:36:9-39:15
-	android:screenOrientation
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:38:13-50
-	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:37:13-45
-activity#com.hajaulee.jsubanime.BrowseErrorActivity
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:40:9-94
-	android:screenOrientation
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:40:55-92
-	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:40:19-54
-activity#com.hajaulee.jsubanime.VideoEnabledWebPlayer
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:41:9-46:20
-	android:screenOrientation
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:44:13-50
-	android:label
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:43:13-45
-	android:configChanges
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:45:13-74
-	android:name
 		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:42:13-50
-activity#com.hajaulee.jsubanime.SearchActivity
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:47:9-50:15
-	android:screenOrientation
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:49:13-50
-	android:label
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:48:13-45
 	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:47:19-49
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:41:13-44
+activity#com.hajaulee.jsubanime.PlaybackActivity
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:43:9-45:53
+	android:screenOrientation
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:45:13-50
+	android:name
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:44:13-45
+activity#com.hajaulee.jsubanime.BrowseErrorActivity
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:46:9-48:53
+	android:screenOrientation
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:48:13-50
+	android:name
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:47:13-48
+activity#com.hajaulee.jsubanime.VideoEnabledWebPlayer
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:49:9-53:52
+	android:screenOrientation
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:53:13-50
+	android:label
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:52:13-45
+	android:configChanges
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:51:13-74
+	android:name
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:50:13-50
+activity#com.hajaulee.jsubanime.SearchActivity
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:54:9-57:53
+	android:screenOrientation
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:57:13-50
+	android:label
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:56:13-45
+	android:name
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:55:13-43
 uses-sdk
 INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
@@ -209,11 +215,11 @@ INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
 		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
 		INJECTED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:56:13-58:57
+ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:64:13-66:58
 	android:resource
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:58:17-55
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:66:17-55
 	android:name
-		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:57:17-67
+		ADDED from F:\Android\Project\JsubAnime\app\src\main\AndroidManifest.xml:65:17-67
 meta-data#android.support.VERSION
 ADDED from [com.android.support:leanback-v17:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\leanback-v17-26.1.0.aar\ca02a6a1d05d31d01df03b9eafda9ce4\AndroidManifest.xml:23:9-25:38
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\HaJaU\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\71a1ff39337d9e6d552d033becc11b22\AndroidManifest.xml:26:9-28:38

@@ -33,34 +33,55 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
 
 /*
  * MainActivity class that loads {@link MainFragment}.
  */
 public class MainActivity extends Activity {
 
-    public static final String UPDATE_LINK = "http://12a1.wc.lt/apk/jsubanime/app-release.app";
-    public static final String INFO_OF_UPDATE = "http://12a1.wc.lt/apk/jsubanime/version.txt";
-    public static final double APP_VERSION = 20180412.3;
+    private static final String UPDATE_LINK = "http://12a1.wc.lt/apk/jsubanime/app-release.app";
+    private static final String INFO_OF_UPDATE = "http://12a1.wc.lt/apk/jsubanime/version.txt";
+    private static final String LANGUAGE_CODE_j = "ja";
+    private static final String LANGUAGE_CODE_v = "vi";
+    private static final String VIETNAMESE = "Tiếng Việt";
+    private static final String JAPANESE = "日本語";
+    private static final String ON = "On";
+    private static final String OFF = "Off";
+    private static final String SETTING_FILE = "settings.fcd";
+    private static final double APP_VERSION = 20180527.0;
     private static Activity activity;
-    public static final int REQUEST = 1997;
-    public static final String WHAT_NEW =
-                    "20180406.0: Fix lỗi url, cải thiện hiệu suất.\n" +
+    private static String LANGUAGE_CODE = LANGUAGE_CODE_v;
+    private static String SYNC_STATUS = ON;
+    private static final int REQUEST = 1997;
+    private static final String WHAT_NEW =
+            "20180406.0: Sửa lỗi đường dẫn video, cải thiện hiệu suất.\n" +
                     "20180409.0: Cải thiện hiệu suất chuyển tập.\n" +
                     "20180412.1: Thêm chức năng xem từ phút bỏ dở.\n" +
                     "20180412.2: Bổ sung thêm ngôn ngữ.\n" +
-                    "20180412.3: Thêm màn hình đợi.\n";
+                    "20180412.3: Thêm màn hình đợi.\n" +
+                    "20180415.0: Sửa lỗi.\n" +
+                    "20180420.0: Sửa lỗi.\n" +
+                    "20180425.0: Sửa lỗi tải danh sách tập.\n" +
+                    "20180527.0: Sửa lỗi về ngôn ngữ.";
     private Dialog helloDialog;
 
     @Override
@@ -70,6 +91,17 @@ public class MainActivity extends Activity {
         getPermissions();
 
         activity = this;
+
+        String settings = MovieList.readFile(SETTING_FILE);
+        if (settings == null) {
+            LANGUAGE_CODE = LANGUAGE_CODE_v;
+            SYNC_STATUS = ON;
+            saveSetting();
+        } else {
+            getSetting(settings);
+        }
+
+
         setContentView(R.layout.activity_main);
 
         showHelloDialog();
@@ -79,6 +111,16 @@ public class MainActivity extends Activity {
         return activity;
     }
 
+    public void saveSetting() {
+        MovieList.saveFile(SETTING_FILE, LANGUAGE_CODE + " " + SYNC_STATUS);
+    }
+
+    public void getSetting(String settings) {
+        String[] arrayOfSetting = settings.split(" ");
+        LANGUAGE_CODE = arrayOfSetting[0];
+        SYNC_STATUS = arrayOfSetting[1];
+        // Toast.makeText(getInstance(), settings, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onDestroy() {
@@ -100,7 +142,7 @@ public class MainActivity extends Activity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //do here
                 } else {
-                    Toast.makeText(this, "Hãy cấp quyền ghi bộ nhớ để ứng dụng có thể cập nhật.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getStringR(R.string.permission_request), Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -241,30 +283,82 @@ public class MainActivity extends Activity {
 
     public static String getStringR(int id) {
         Configuration conf = getInstance().getResources().getConfiguration();
-        conf.locale = new Locale("ja");
+        conf.locale = new Locale(LANGUAGE_CODE);
         DisplayMetrics metrics = new DisplayMetrics();
         getInstance().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         Resources resources = new Resources(getInstance().getAssets(), metrics, conf);
-        String str = resources.getString(id);
-        return str;
+        return resources.getString(id);
     }
 
     public void showHelloDialog() {
 
         helloDialog = new Dialog(this, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         helloDialog.setCancelable(false);
+        helloDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK)
+                    MainActivity.this.finish();
+                return false;
+            }
+        });
         helloDialog.addContentView(((LayoutInflater) MainActivity
-                .getInstance()
-                .getBaseContext()
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_hello, null),
+                        .getInstance()
+                        .getBaseContext()
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_hello, null),
                 new WindowManager.LayoutParams(WindowManager.LayoutParams.FLAG_FULLSCREEN));
         helloDialog.show();
     }
 
-    public void hideHelloDialog(){
+    public void hideHelloDialog() {
         helloDialog.hide();
         helloDialog.dismiss();
     }
+
+    public Map<String, String> createMap(String title, String subtitle) {
+        Map<String, String> dataRow = new HashMap<>(2);
+        dataRow.put("title", title);
+        dataRow.put("content", subtitle);
+        return dataRow;
+    }
+
+    public void showRestartConfirmDialog(final int selected) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.restart);
+        builder.setMessage(R.string.restart_confirm);
+        builder.setNegativeButton(getStringR(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (selected) {
+                    case 0:
+                        LANGUAGE_CODE = LANGUAGE_CODE_v;
+                        break;
+                    case 1:
+                        LANGUAGE_CODE = LANGUAGE_CODE_j;
+                        break;
+                }
+                saveSetting();
+                Intent intent = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                if (intent != null) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            }
+        });
+        builder.setPositiveButton(getStringR(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                builder.show().dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    public static boolean isVietnamese() {
+        return LANGUAGE_CODE.equals(LANGUAGE_CODE_v);
+    }
+
     public void showSettingsDialog() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         LayoutInflater inflater = (LayoutInflater) MainActivity
@@ -272,21 +366,84 @@ public class MainActivity extends Activity {
                 .getBaseContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View v = inflater.inflate(R.layout.layout_settings, null);
-        Spinner spinner = (Spinner) v.findViewById(R.id.language_selector);
-        String languages[] = {"Tiếng Việt", "日本語"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, languages);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        final List<Map<String, String>> data = new ArrayList<>();
+        data.add(createMap(getStringR(R.string.language), LANGUAGE_CODE.equals(LANGUAGE_CODE_v) ? VIETNAMESE : JAPANESE));
+        data.add(createMap(getStringR(R.string.sync), SYNC_STATUS.equals(ON) ? ON : OFF));
+
+        final SimpleAdapter settingAdapter = new SimpleAdapter(this,
+                data,
+                android.R.layout.simple_list_item_2,
+                new String[]{"title", "content"},
+                new int[]{android.R.id.text1, android.R.id.text2});
+        final ListView listView = (ListView) v.findViewById(R.id.listView);
+        listView.setAdapter(settingAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        v.findViewById(R.id.languageSetting).setVisibility(View.VISIBLE);
+                        break;
+                    case 1:
+                        v.findViewById(R.id.syncSetting).setVisibility(View.VISIBLE);
+                        break;
+                }
+                listView.setVisibility(View.GONE);
+            }
+        });
+
+        String languages[] = {VIETNAMESE, JAPANESE};
+        ArrayAdapter<String> languageAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, languages);
+        ListView languageSetting = (ListView) v.findViewById(R.id.languageSetting);
+        languageSetting.setAdapter(languageAdapter);
+        languageSetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                showRestartConfirmDialog(i);
+            }
+        });
+
+        String options[] = {ON, OFF};
+        ArrayAdapter<String> onOffAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, options);
+        final ListView syncSetting = (ListView) v.findViewById(R.id.syncSetting);
+        syncSetting.setAdapter(onOffAdapter);
+        syncSetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 0:
+                        SYNC_STATUS = ON;
+                        break;
+                    case 1:
+                        SYNC_STATUS = OFF;
+                        break;
+                }
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        data.remove(1);
+                        data.add(1, createMap(getStringR(R.string.sync), SYNC_STATUS.equals(ON) ? ON : OFF));
+                        settingAdapter.notifyDataSetChanged();
+                    }
+                });
+                saveSetting();
+                syncSetting.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+            }
+        });
 
         b.setView(v);
-        b.create().show();
+        b.show();
     }
 
     public static void showWatchInMiddleConfirmationDialog(final VideoDetailsFragment sender, final Intent intent, final Movie m) {
         AlertDialog.Builder builder = new AlertDialog.Builder(sender.getActivity());
-        builder.setTitle("Bạn có muốn xem tiếp tại phần bỏ dở không?");
-        builder.setMessage("Bạn đang xem tập " + m.getCurrentEp() + " tại " +
-                VideoDetailsFragment.timeFormat(m.getWatchingSecond()));
+        builder.setTitle(getStringR(R.string.continue_watching));
+        builder.setMessage(String.format(
+                getStringR(R.string.current_ep), m.getCurrentEp(),
+                VideoDetailsFragment.timeFormat(m.getWatchingSecond())
+        ));
         builder.setCancelable(false);
         builder.setNegativeButton(getStringR(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
